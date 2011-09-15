@@ -45,12 +45,25 @@ package com.richardhoppes.moviedb.service {
 		}
 		
 		private function imdbLookup_ResultHandler(e:Event):void {	
-			/*var results:Array = parseResponse(e.currentTarget.data as String);
+			var results:ArrayCollection = ResponseUtil.imdbLookup(e.currentTarget.data as String);
 			if(results.length > 0) {
 				dispatchEvent(new IMDBLookupEvent(IMDBLookupEvent.RESULT, results, e.currentTarget.data as String));
 			} else {
 				dispatchEvent(new IMDBLookupEvent(IMDBLookupEvent.NO_RESULTS, results, e.currentTarget.data as String));
-			}*/
+			}
+		}
+		
+		public function getInfo(tmdbId:String):void {
+			loadURL(buildURL(MOVIE_GET_INFO_METHOD, escape(tmdbId)), getInfo_ResultHandler);
+		}
+		
+		private function getInfo_ResultHandler(e:Event):void {
+			var results:ArrayCollection = ResponseUtil.getInfo(e.currentTarget.data as String);
+			if(results.length > 0) {
+				dispatchEvent(new GetInfoEvent(GetInfoEvent.RESULT, results, e.currentTarget.data as String));
+			} else {
+				dispatchEvent(new GetInfoEvent(GetInfoEvent.NO_RESULTS, results, e.currentTarget.data as String));
+			}
 		}
 		
 		// IMDB or TMDb ids
@@ -102,19 +115,6 @@ package com.richardhoppes.moviedb.service {
 				dispatchEvent(new GetLatestEvent(GetLatestEvent.RESULT, results, e.currentTarget.data as String));
 			} else {
 				dispatchEvent(new GetLatestEvent(GetLatestEvent.NO_RESULTS, results, e.currentTarget.data as String));
-			}*/
-		}
-		
-		public function getInfo(tmdbId:String):void {
-			loadURL(buildURL(MOVIE_GET_INFO_METHOD, escape(tmdbId)), getInfo_ResultHandler);
-		}
-		
-		private function getInfo_ResultHandler(e:Event):void {	
-			/*var results:Array = parseResponse(e.currentTarget.data as String);
-			if(results.length > 0) {
-				dispatchEvent(new GetInfoEvent(GetInfoEvent.RESULT, results, e.currentTarget.data as String));
-			} else {
-				dispatchEvent(new GetInfoEvent(GetInfoEvent.NO_RESULTS, results, e.currentTarget.data as String));
 			}*/
 		}
 		

@@ -6,6 +6,7 @@ package com.richardhoppes.moviedb.json {
 	import com.richardhoppes.moviedb.vo.MovieInfoVO;
 	import com.richardhoppes.moviedb.vo.MovieSearchVO;
 	import com.richardhoppes.moviedb.vo.MovieVO;
+	import com.richardhoppes.moviedb.vo.TranslationVO;
 	
 	import mx.collections.ArrayCollection;
 	
@@ -47,6 +48,21 @@ package com.richardhoppes.moviedb.json {
 				for each (var movie:Object in jsonResult) {
 					var movieVO:MovieInfoVO = VOUtil.createMovieInfoVO(movie);
 					result.addItem(movieVO);
+				} 
+			}
+			return result;
+		}
+		
+		public static function getTranslations(response:String):ArrayCollection {
+			var result:ArrayCollection = new ArrayCollection();
+			var jsonResult:Object = ParseUtil.decodeAsObject(response);
+			
+			if(jsonResult.length > 0) {
+				for each (var movie:Object in jsonResult) {
+					for(var i:Number = 0; i < movie.translations.length; i++) {
+						var translationVO:TranslationVO = VOUtil.createTranslationVO(movie.translations[i]);
+						result.addItem(translationVO);
+					}
 				} 
 			}
 			return result;

@@ -10,6 +10,7 @@
     <classEntry path="com.richardhoppes.moviedb.vo.PosterVO"/>
     <classEntry path="com.richardhoppes.moviedb.json.VOUtil"/>
     <classEntry path="com.richardhoppes.moviedb.json.DataTypeUtil"/>
+    <classEntry path="com.richardhoppes.moviedb.vo.VersionVO"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

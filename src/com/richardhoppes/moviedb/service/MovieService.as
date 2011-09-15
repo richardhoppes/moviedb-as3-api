@@ -27,10 +27,20 @@ package com.richardhoppes.moviedb.service {
 			super();
 		}
 		
-		public function movieSearch(movieTitle:String):void {
-			loadURL(buildURL(MOVIE_SEARCH_METHOD, escape(movieTitle)), movieSearch_ResultHandler);
+		/**
+		 * Retrieves search results for provided movie name 
+		 * @param name String title of movie
+		 * @return void 
+		 */
+		public function movieSearch(name:String):void {
+			loadURL(buildURL(MOVIE_SEARCH_METHOD, escape(name)), movieSearch_ResultHandler);
 		}
 	
+		/**
+		 * Handles movieSearch result
+		 * @param e Event  
+		 * @return void
+		 */
 		private function movieSearch_ResultHandler(e:Event):void {
 			var results:ArrayCollection = ResponseUtil.movieSearch(e.currentTarget.data as String);
 			if(results.length > 0) {
@@ -40,10 +50,20 @@ package com.richardhoppes.moviedb.service {
 			}
 		}
 		
+		/**
+		 * Retrieves movie for the provided imdbId.
+		 * @param imdbId String imdb id 
+		 * @return void 
+		 */
 		public function imdbLookup(imdbId:String):void {
 			loadURL(buildURL(MOVIE_IMDB_LOOKUP_METHOD, escape(imdbId)), imdbLookup_ResultHandler);
 		}
 		
+		/**
+		 * Handles imdbLookup result
+		 * @param e Event  
+		 * @return void
+		 */
 		private function imdbLookup_ResultHandler(e:Event):void {	
 			var results:ArrayCollection = ResponseUtil.imdbLookup(e.currentTarget.data as String);
 			if(results.length > 0) {
@@ -53,16 +73,49 @@ package com.richardhoppes.moviedb.service {
 			}
 		}
 		
+		/**
+		 * Retrieves detailed movie information for given tmdbId. 
+		 * @param tmdbId String tmdb id
+		 * @return void 
+		 */
 		public function getInfo(tmdbId:String):void {
 			loadURL(buildURL(MOVIE_GET_INFO_METHOD, escape(tmdbId)), getInfo_ResultHandler);
 		}
 		
+		/**
+		 * Handles getInfo result
+		 * @param e Event  
+		 * @return void
+		 */
 		private function getInfo_ResultHandler(e:Event):void {
 			var results:ArrayCollection = ResponseUtil.getInfo(e.currentTarget.data as String);
 			if(results.length > 0) {
 				dispatchEvent(new GetInfoEvent(GetInfoEvent.RESULT, results, e.currentTarget.data as String));
 			} else {
 				dispatchEvent(new GetInfoEvent(GetInfoEvent.NO_RESULTS, results, e.currentTarget.data as String));
+			}
+		}
+		
+		/**
+		 * Retrieves list of available translations for the provided imdb id or tmdb id.
+		 * @param id String imdbId or tmdbId
+		 * @return void 
+		 */
+		public function getTranslations(id:String):void {
+			loadURL(buildURL(MOVIE_GET_TRANSLATIONS_METHOD, escape(id)), getTranslations_ResultHandler);
+		}
+		
+		/**
+		 * Handles getTranslations result
+		 * @param e Event  
+		 * @return void
+		 */
+		private function getTranslations_ResultHandler(e:Event):void {	
+			var results:ArrayCollection = ResponseUtil.getTranslations(e.currentTarget.data as String);
+			if(results.length > 0) {
+				dispatchEvent(new GetTranslationsEvent(GetTranslationsEvent.RESULT, results, e.currentTarget.data as String));
+			} else {
+				dispatchEvent(new GetTranslationsEvent(GetTranslationsEvent.NO_RESULTS, results, e.currentTarget.data as String));
 			}
 		}
 		
@@ -82,26 +135,7 @@ package com.richardhoppes.moviedb.service {
 		}
 		
 		private function getVersion_ResultHandler(e:Event):void {	
-			/*var results:Array = parseResponse(e.currentTarget.data as String);
-			if(results.length > 0) {
-				dispatchEvent(new GetVersionEvent(GetVersionEvent.RESULT, results, e.currentTarget.data as String));
-			} else {
-				dispatchEvent(new GetVersionEvent(GetVersionEvent.NO_RESULTS, results, e.currentTarget.data as String));
-			}*/
-		}
-		
-		// IMDB or TMDb ids
-		public function getTranslations(id:String):void {
-			loadURL(buildURL(MOVIE_GET_TRANSLATIONS_METHOD, escape(id)), getTranslations_ResultHandler);
-		}
-		
-		private function getTranslations_ResultHandler(e:Event):void {	
-			/*var results:Array = parseResponse(e.currentTarget.data as String);
-			if(results.length > 0) {
-				dispatchEvent(new GetTranslationsEvent(GetTranslationsEvent.RESULT, results, e.currentTarget.data as String));
-			} else {
-				dispatchEvent(new GetTranslationsEvent(GetTranslationsEvent.NO_RESULTS, results, e.currentTarget.data as String));
-			}*/
+			trace("versions result: " + e.currentTarget.data as String);
 		}
 		
 		public function getLatest():void {
@@ -110,12 +144,7 @@ package com.richardhoppes.moviedb.service {
 		}
 		
 		private function getLatest_ResultHandler(e:Event):void {	
-			/*var results:Array = parseResponse(e.currentTarget.data as String);
-			if(results.length > 0) {
-				dispatchEvent(new GetLatestEvent(GetLatestEvent.RESULT, results, e.currentTarget.data as String));
-			} else {
-				dispatchEvent(new GetLatestEvent(GetLatestEvent.NO_RESULTS, results, e.currentTarget.data as String));
-			}*/
+			trace("latest result: " + e.currentTarget.data as String);
 		}
 		
 		// IMDB or TMDb ids
@@ -124,12 +153,7 @@ package com.richardhoppes.moviedb.service {
 		}
 		
 		private function getImages_ResultHandler(e:Event):void {	
-			/*var results:Array = parseResponse(e.currentTarget.data as String);
-			if(results.length > 0) {
-				dispatchEvent(new GetImagesEvent(GetImagesEvent.RESULT, results, e.currentTarget.data as String));
-			} else {
-				dispatchEvent(new GetImagesEvent(GetImagesEvent.NO_RESULTS, results, e.currentTarget.data as String));
-			}*/
+			trace("images result:" + e.currentTarget.data as String);
 		}
 		
 		public function browse():void {
@@ -137,12 +161,7 @@ package com.richardhoppes.moviedb.service {
 		}
 		
 		private function browse_ResultHandler(e:Event):void {	
-			/*var results:Array = parseResponse(e.currentTarget.data as String);
-			if(results.length > 0) {
-				dispatchEvent(new BrowseEvent(BrowseEvent.RESULT, results, e.currentTarget.data as String));
-			} else {
-				dispatchEvent(new BrowseEvent(BrowseEvent.RESULT, results, e.currentTarget.data as String));
-			}*/
+			trace("browse result:" + e.currentTarget.data as String);
 		}
 	}
 }

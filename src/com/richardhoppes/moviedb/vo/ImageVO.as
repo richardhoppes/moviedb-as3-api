@@ -12,9 +12,9 @@ package com.richardhoppes.moviedb.vo {
 		
 		public var width:Number;
 		public var url:String;
-		public var id:Number;
+		public var id:String;
 		public var height:Number;
-		public var size:Number;
+		public var size:String;
 		public var type:String;
 	}
 }

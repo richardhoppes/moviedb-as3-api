@@ -9,6 +9,7 @@ package com.richardhoppes.moviedb.json {
 	import com.richardhoppes.moviedb.vo.MovieVO;
 	import com.richardhoppes.moviedb.vo.PersonVO;
 	import com.richardhoppes.moviedb.vo.StudioVO;
+	import com.richardhoppes.moviedb.vo.TranslationVO;
 	
 	import mx.collections.ArrayCollection;
 	
@@ -141,6 +142,14 @@ package com.richardhoppes.moviedb.json {
 			return countryVO;
 		}
 		
+		public static function createTranslationVO(object:Object):TranslationVO {
+			var translationVO:TranslationVO = new TranslationVO;
+			translationVO.englishName = object.english_name;
+			translationVO.nativeName = object.native_name;
+			translationVO.iso639_1 = object.iso_639_1;
+			return translationVO;
+		}
+		
 		public static function createImageVO(object:Object):ImageVO {
 			var imageVO:ImageVO = new ImageVO();
 			imageVO.id = object.id;
@@ -148,7 +157,7 @@ package com.richardhoppes.moviedb.json {
 			imageVO.type = object.type;
 			imageVO.height = DataTypeUtil.handleNumber(object.height);
 			imageVO.width = DataTypeUtil.handleNumber(object.width);
-			imageVO.size = DataTypeUtil.handleNumber(object.size);
+			imageVO.size = object.size;
 			return imageVO;
 		}
 		

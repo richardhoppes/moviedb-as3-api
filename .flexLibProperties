@@ -4,6 +4,12 @@
     <classEntry path="com.richardhoppes.moviedb.service.BaseService"/>
     <classEntry path="com.richardhoppes.moviedb.error.ServiceError"/>
     <classEntry path="com.richardhoppes.moviedb.service.MovieService"/>
+    <classEntry path="com.richardhoppes.moviedb.vo.MovieVO"/>
+    <classEntry path="com.richardhoppes.moviedb.json.ResponseUtil"/>
+    <classEntry path="com.richardhoppes.moviedb.json.ParseUtil"/>
+    <classEntry path="com.richardhoppes.moviedb.vo.PosterVO"/>
+    <classEntry path="com.richardhoppes.moviedb.json.VOUtil"/>
+    <classEntry path="com.richardhoppes.moviedb.json.DataTypeUtil"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

@@ -1,4 +1,4 @@
-package com.richardhoppes.moviedb.event {
+package com.richardhoppes.moviedb.event.movie {
 	import flash.events.Event;
 	
 	public class GetTranslationsEvent extends Event {

@@ -1,4 +1,4 @@
-package com.richardhoppes.moviedb.event {
+package com.richardhoppes.moviedb.event.movie {
 	import com.richardhoppes.moviedb.error.ServiceError;
 	
 	import flash.events.Event;

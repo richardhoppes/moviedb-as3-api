@@ -1,14 +1,16 @@
-package com.richardhoppes.moviedb.event {
+package com.richardhoppes.moviedb.event.movie {
 	import flash.events.Event;
+	
+	import mx.collections.ArrayCollection;
 
 	public class MovieSearchEvent extends Event {
 		
 		public static const RESULT:String = "MovieSearchEvent.RESULT";
 		public static const NO_RESULTS:String = "MovieSearchEvent.NO_RESULTS";
 		
-		private var _results:Array;
+		private var _results:ArrayCollection;
 		
-		public function get results():Array {
+		public function get results():ArrayCollection {
 			return _results;
 		}
 		
@@ -18,7 +20,7 @@ package com.richardhoppes.moviedb.event {
 			return _rawResult;
 		}
 		
-		public function MovieSearchEvent(type:String, results:Array, rawResult:String, bubbles:Boolean = false) {
+		public function MovieSearchEvent(type:String, results:ArrayCollection, rawResult:String, bubbles:Boolean = false) {
 			super(type, bubbles);
 			_results = results;
 			_rawResult = rawResult;

@@ -26,8 +26,9 @@ package com.richardhoppes.moviedb.json {
 			var movieImdbLookupVO:MovieImdbLookupVO = MovieImdbLookupVO(VOUtil.createMovieVO(object, new MovieImdbLookupVO()));
 			movieImdbLookupVO.runtime = DataTypeUtil.handleNumber(object.runtime);
 			
+			movieImdbLookupVO.genres = new ArrayCollection();
 			for each (var genre:Object in object.genres) {
-				movieImdbLookupVO.images.addItem(createGenreVO(genre));
+				movieImdbLookupVO.genres.addItem(createGenreVO(genre));
 			}
 
 			return movieImdbLookupVO;
@@ -94,7 +95,6 @@ package com.richardhoppes.moviedb.json {
 			movieVO.rating = DataTypeUtil.handleNumber(object.rating);
 			movieVO.translated = DataTypeUtil.handleBoolean(object.translated); 
 			
-			// Images
 			movieVO.images = new ArrayCollection();
 			for each (var poster:Object in object.posters) {
 				for each (var posterImage:Object in poster) {

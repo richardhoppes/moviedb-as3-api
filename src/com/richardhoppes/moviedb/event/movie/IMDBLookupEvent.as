@@ -1,7 +1,7 @@
 package com.richardhoppes.moviedb.event.movie {
-	import flash.events.Event;
+	import com.richardhoppes.moviedb.vo.MovieImdbLookupVO;
 	
-	import mx.collections.ArrayCollection;
+	import flash.events.Event;
 	
 	/**
 	 * IMDB Lookup Event 
@@ -13,10 +13,10 @@ package com.richardhoppes.moviedb.event.movie {
 		public static const RESULT:String = "IMDBLookupEvent.RESULT";
 		public static const NO_RESULTS:String = "IMDBLookupEvent.NO_RESULT";
 		
-		private var _results:ArrayCollection;
+		private var _result:MovieImdbLookupVO;
 		
-		public function get results():ArrayCollection {
-			return _results;
+		public function get result():MovieImdbLookupVO {
+			return _result;
 		}
 		
 		private var _rawResult:String;
@@ -25,14 +25,14 @@ package com.richardhoppes.moviedb.event.movie {
 			return _rawResult;
 		}
 		
-		public function IMDBLookupEvent(type:String, results:ArrayCollection, rawResult:String, bubbles:Boolean = false) {
+		public function IMDBLookupEvent(type:String, result:MovieImdbLookupVO, rawResult:String, bubbles:Boolean = false) {
 			super(type, bubbles);
-			_results = results;
+			_result = result;
 			_rawResult = rawResult;
 		}
 		
 		override public function clone():Event {
-			return new IMDBLookupEvent(type, results, rawResult, bubbles);
+			return new IMDBLookupEvent(type, result, rawResult, bubbles);
 		}
 	}
 }

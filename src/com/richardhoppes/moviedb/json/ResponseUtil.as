@@ -24,7 +24,6 @@ package com.richardhoppes.moviedb.json {
 		public static function movieSearch(response:String):ArrayCollection {
 			var result:ArrayCollection = new ArrayCollection();
 			var jsonResult:Object = ParseUtil.decodeAsObject(response);
-
 			if(jsonResult.length > 0) {
 				for each (var movie:Object in jsonResult) {
 					var movieVO:MovieSearchVO = VOUtil.createMovieSearchVO(movie);
@@ -34,28 +33,20 @@ package com.richardhoppes.moviedb.json {
 			return result;
 		}
 		
-		public static function imdbLookup(response:String):ArrayCollection {
-			var result:ArrayCollection = new ArrayCollection();
+		public static function imdbLookup(response:String):MovieImdbLookupVO {
+			var result:MovieImdbLookupVO = new MovieImdbLookupVO();
 			var jsonResult:Object = ParseUtil.decodeAsObject(response);
-			
 			if(jsonResult.length > 0) {
-				for each (var movie:Object in jsonResult) {
-					var movieVO:MovieImdbLookupVO = VOUtil.createMovieImdbLookupVO(movie);
-					result.addItem(movieVO);
-				} 
+				result = VOUtil.createMovieImdbLookupVO(jsonResult[0]);
 			}
 			return result;
 		}
 		
-		public static function getInfo(response:String):ArrayCollection {
-			var result:ArrayCollection = new ArrayCollection();
+		public static function getInfo(response:String):MovieInfoVO {
+			var result:MovieInfoVO = new MovieInfoVO;
 			var jsonResult:Object = ParseUtil.decodeAsObject(response);
-			
 			if(jsonResult.length > 0) {
-				for each (var movie:Object in jsonResult) {
-					var movieVO:MovieInfoVO = VOUtil.createMovieInfoVO(movie);
-					result.addItem(movieVO);
-				} 
+				result = VOUtil.createMovieInfoVO(jsonResult[0]);
 			}
 			return result;
 		}
@@ -63,14 +54,11 @@ package com.richardhoppes.moviedb.json {
 		public static function getTranslations(response:String):ArrayCollection {
 			var result:ArrayCollection = new ArrayCollection();
 			var jsonResult:Object = ParseUtil.decodeAsObject(response);
-			
 			if(jsonResult.length > 0) {
-				for each (var movie:Object in jsonResult) {
-					for(var i:Number = 0; i < movie.translations.length; i++) {
-						var translationVO:TranslationVO = VOUtil.createTranslationVO(movie.translations[i]);
-						result.addItem(translationVO);
-					}
-				} 
+				for(var i:Number = 0; i < jsonResult[0].translations.length; i++) {
+					var translationVO:TranslationVO = VOUtil.createTranslationVO(jsonResult[0].translations[i]);
+					result.addItem(translationVO);
+				}
 			}
 			return result;
 		}
@@ -94,6 +82,24 @@ package com.richardhoppes.moviedb.json {
 				result = VOUtil.createLatestVO(jsonResult[0]);
 			}
 			return result;
+		}
+		
+		public static function getImages(response:String):ArrayCollection {
+			var results:ArrayCollection = new ArrayCollection();
+			var jsonResult:Object = ParseUtil.decodeAsObject(response);
+			if(jsonResult.length > 0) {
+				for each (var poster:Object in jsonResult[0].posters) {
+					for each (var posterImage:Object in poster) {
+						results.addItem(VOUtil.createImageVO(posterImage));
+					}
+				}
+				for each (var backdrop:Object in jsonResult[0].backdrops) {
+					for each (var backdropImage:Object in backdrop) {
+						results.addItem(VOUtil.createImageVO(backdropImage));
+					}
+				}
+			}
+			return results;
 		}
 	}
 }

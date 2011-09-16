@@ -3,6 +3,11 @@ package com.richardhoppes.moviedb.event.movie {
 	
 	import flash.events.Event;
 
+	/**
+	 * Service Error Event 
+	 * @author richard hoppes
+	 * 
+	 */	
 	public class ServiceErrorEvent extends Event {
 		
 		public static const FAULT:String = "ServiceErrorEvent.FAULT";

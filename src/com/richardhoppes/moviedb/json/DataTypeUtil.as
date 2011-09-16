@@ -1,7 +1,11 @@
-package com.richardhoppes.moviedb.json
-{
+package com.richardhoppes.moviedb.json {
+
+	/**
+	 * Data Type Utility 
+	 * @author richard hoppes
+	 * 
+	 */	
 	public class DataTypeUtil {
-		
 		public static function handleBoolean(value:*):Boolean {
 			if (value != null && value != "") {
 				if (value is Boolean)

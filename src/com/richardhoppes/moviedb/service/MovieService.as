@@ -8,11 +8,16 @@ package com.richardhoppes.moviedb.service {
 	import com.richardhoppes.moviedb.event.movie.IMDBLookupEvent;
 	import com.richardhoppes.moviedb.event.movie.MovieSearchEvent;
 	import com.richardhoppes.moviedb.json.ResponseUtil;
+	import com.richardhoppes.moviedb.vo.LatestVO;
 	
 	import flash.events.Event;
-	
 	import mx.collections.ArrayCollection;
 	
+	/**
+	 * Movie Service
+	 * @author richard hoppes
+	 * 
+	 */	
 	public class MovieService extends BaseService {
 		public const MOVIE_SEARCH_METHOD:String = "Movie.search";
 		public const MOVIE_IMDB_LOOKUP_METHOD:String = "Movie.imdbLookup";
@@ -119,7 +124,11 @@ package com.richardhoppes.moviedb.service {
 			}
 		}
 		
-		// IMDB or TMDb ids
+		/**
+		 * Retrieves one or more versions for the provided imdb ids or tmdb ids.
+		 * @param id String single or comma delimited list of imdbIds and/or tmdbIds
+		 * @return void 
+		 */
 		public function getVersion(ids:*):void {
 			var idList:String = "";
 			if (ids is Array) {
@@ -134,20 +143,44 @@ package com.richardhoppes.moviedb.service {
 			loadURL(buildURL(MOVIE_GET_VERSION_METHOD, escape(idList)), getVersion_ResultHandler);
 		}
 		
+		/**
+		 * Handles getVersion result
+		 * @param e Event  
+		 * @return void
+		 */
 		private function getVersion_ResultHandler(e:Event):void {	
-			trace("versions result: " + e.currentTarget.data as String);
+			var results:ArrayCollection = ResponseUtil.getVersion(e.currentTarget.data as String);
+			if(results.length > 0) {
+				dispatchEvent(new GetVersionEvent(GetVersionEvent.RESULT, results, e.currentTarget.data as String));
+			} else {
+				dispatchEvent(new GetVersionEvent(GetVersionEvent.NO_RESULTS, results, e.currentTarget.data as String));
+			}
 		}
 		
+		/**
+		 * Retrieves ids for latest movie created
+		 * @return void 
+		 */
 		public function getLatest():void {
 			loadURL(buildURL(MOVIE_GET_LATEST_METHOD), getLatest_ResultHandler);
-			this.loadURL(buildURL(MOVIE_GET_INFO_METHOD), getLatest_ResultHandler);
 		}
 		
+		/**
+		 * Handles getLatest result
+		 * @param e Event  
+		 * @return void
+		 */
 		private function getLatest_ResultHandler(e:Event):void {	
-			trace("latest result: " + e.currentTarget.data as String);
+			var results:LatestVO = ResponseUtil.getLatest(e.currentTarget.data as String);
+			if(results != null && results.id != null) {
+				dispatchEvent(new GetLatestEvent(GetLatestEvent.RESULT, results, e.currentTarget.data as String));
+			} else {
+				dispatchEvent(new GetLatestEvent(GetLatestEvent.NO_RESULTS, results, e.currentTarget.data as String));
+			}
 		}
 		
-		// IMDB or TMDb ids
+		/*
+		TODO: Implement these methods
 		public function getImages(id:String):void {
 			loadURL(buildURL(MOVIE_GET_IMAGES_METHOD, escape(id)), getImages_ResultHandler);
 		}
@@ -163,5 +196,6 @@ package com.richardhoppes.moviedb.service {
 		private function browse_ResultHandler(e:Event):void {	
 			trace("browse result:" + e.currentTarget.data as String);
 		}
+		*/
 	}
 }

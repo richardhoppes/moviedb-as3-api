@@ -15,6 +15,11 @@ package com.richardhoppes.moviedb.service {
 	import flash.net.URLRequest;
 	import flash.net.URLRequestMethod;
 	
+	/**
+	 * Base Service 
+	 * @author richard hoppes
+	 * 
+	 */	
 	public class BaseService extends EventDispatcher {
 		protected const BASE_API_URL:String = "http://api.themoviedb.org/2.1/";
 		

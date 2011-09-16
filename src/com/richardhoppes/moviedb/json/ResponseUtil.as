@@ -2,14 +2,21 @@ package com.richardhoppes.moviedb.json {
 	import com.richardhoppes.moviedb.json.ParseUtil;
 	import com.richardhoppes.moviedb.json.VOUtil;
 	import com.richardhoppes.moviedb.vo.ImageVO;
+	import com.richardhoppes.moviedb.vo.LatestVO;
 	import com.richardhoppes.moviedb.vo.MovieImdbLookupVO;
 	import com.richardhoppes.moviedb.vo.MovieInfoVO;
 	import com.richardhoppes.moviedb.vo.MovieSearchVO;
 	import com.richardhoppes.moviedb.vo.MovieVO;
 	import com.richardhoppes.moviedb.vo.TranslationVO;
+	import com.richardhoppes.moviedb.vo.VersionVO;
 	
 	import mx.collections.ArrayCollection;
 	
+	/**
+	 * Response Utility 
+	 * @author richard hoppes
+	 * 
+	 */	
 	public class ResponseUtil {
 		public function ResponseUtil() {
 		}
@@ -64,6 +71,27 @@ package com.richardhoppes.moviedb.json {
 						result.addItem(translationVO);
 					}
 				} 
+			}
+			return result;
+		}
+		
+		public static function getVersion(response:String):ArrayCollection {
+			var result:ArrayCollection = new ArrayCollection();
+			var jsonResult:Object = ParseUtil.decodeAsObject(response);
+			if(jsonResult.length > 0) {
+				for each (var version:Object in jsonResult) {
+					var versionVO:VersionVO = VOUtil.createVersionVO(version);
+					result.addItem(versionVO);
+				} 
+			}
+			return result;
+		}
+		
+		public static function getLatest(response:String):LatestVO {
+			var result:LatestVO = new LatestVO();
+			var jsonResult:Object = ParseUtil.decodeAsObject(response);
+			if(jsonResult.length > 0) {
+				result = VOUtil.createLatestVO(jsonResult[0]);
 			}
 			return result;
 		}

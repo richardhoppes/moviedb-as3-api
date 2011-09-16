@@ -1,5 +1,6 @@
 package com.richardhoppes.moviedb.vo {
 	[RemoteClass(alias="com.richardhoppes.moviedb.vo.TranslationVO")]
+	
 	/**
 	 * Translation VO 
 	 * @author richard hoppes

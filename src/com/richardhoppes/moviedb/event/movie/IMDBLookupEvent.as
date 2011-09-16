@@ -3,6 +3,11 @@ package com.richardhoppes.moviedb.event.movie {
 	
 	import mx.collections.ArrayCollection;
 	
+	/**
+	 * IMDB Lookup Event 
+	 * @author richard hoppes
+	 * 
+	 */	
 	public class IMDBLookupEvent extends Event {
 		
 		public static const RESULT:String = "IMDBLookupEvent.RESULT";

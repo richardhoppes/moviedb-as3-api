@@ -2,6 +2,11 @@ package com.richardhoppes.moviedb.json {
 	import com.adobe.serialization.json.JSON;
 	import com.adobe.serialization.json.JSONParseError;
 	
+	/**
+	 * Parse Utility 
+	 * @author richard hoppes
+	 * 
+	 */	
 	public class ParseUtil {
 		protected static const API_RESPONSE_NO_RESULTS:String = "Nothing found.";
 		

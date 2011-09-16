@@ -1,6 +1,11 @@
 package com.richardhoppes.moviedb.event.movie {
 	import flash.events.Event;
 	
+	/**
+	 * Browse Event 
+	 * @author richard hoppes
+	 * 
+	 */	
 	public class BrowseEvent extends Event {
 		
 		public static const RESULT:String = "BrowseEvent.RESULT";

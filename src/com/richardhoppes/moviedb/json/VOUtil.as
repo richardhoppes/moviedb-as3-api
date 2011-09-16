@@ -3,6 +3,7 @@ package com.richardhoppes.moviedb.json {
 	import com.richardhoppes.moviedb.vo.CountryVO;
 	import com.richardhoppes.moviedb.vo.GenreVO;
 	import com.richardhoppes.moviedb.vo.ImageVO;
+	import com.richardhoppes.moviedb.vo.LatestVO;
 	import com.richardhoppes.moviedb.vo.MovieImdbLookupVO;
 	import com.richardhoppes.moviedb.vo.MovieInfoVO;
 	import com.richardhoppes.moviedb.vo.MovieSearchVO;
@@ -10,9 +11,15 @@ package com.richardhoppes.moviedb.json {
 	import com.richardhoppes.moviedb.vo.PersonVO;
 	import com.richardhoppes.moviedb.vo.StudioVO;
 	import com.richardhoppes.moviedb.vo.TranslationVO;
+	import com.richardhoppes.moviedb.vo.VersionVO;
 	
 	import mx.collections.ArrayCollection;
 	
+	/**
+	 * VO Utility  
+	 * @author richard hoppes
+	 * 
+	 */	
 	public class VOUtil {
 		
 		public static function createMovieImdbLookupVO(object:Object):MovieImdbLookupVO {
@@ -159,6 +166,26 @@ package com.richardhoppes.moviedb.json {
 			imageVO.width = DataTypeUtil.handleNumber(object.width);
 			imageVO.size = object.size;
 			return imageVO;
+		}
+		
+		public static function createVersionVO(object:Object):VersionVO {
+			var versionVO:VersionVO = new VersionVO();
+			versionVO.name = object.name;
+			versionVO.id = object.id;
+			versionVO.imdbId = object.imdb_id;
+			versionVO.lastModifiedAt = object.last_modified_at;
+			versionVO.version = object.version;
+			return versionVO;
+		}
+		
+		public static function createLatestVO(object:Object):LatestVO {
+			var latestVO:LatestVO = new LatestVO();
+			latestVO.name = object.name;
+			latestVO.id = object.id;
+			latestVO.imdbId = object.imdb_id;
+			latestVO.lastModifiedAt = object.last_modified_at;
+			latestVO.version = object.version;
+			return latestVO;
 		}
 		
 	}

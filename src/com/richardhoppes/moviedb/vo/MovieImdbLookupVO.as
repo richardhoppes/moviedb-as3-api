@@ -2,6 +2,7 @@ package com.richardhoppes.moviedb.vo {
 	import mx.collections.ArrayCollection;
 
 	[RemoteClass(alias="com.richardhoppes.moviedb.vo.MovieImdbLookupVO")]
+	
 	/**
 	 * Movie Imdb Lookup VO 
 	 * @author richard hoppes

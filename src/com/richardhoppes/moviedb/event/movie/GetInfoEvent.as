@@ -3,6 +3,11 @@ package com.richardhoppes.moviedb.event.movie {
 	
 	import mx.collections.ArrayCollection;
 	
+	/**
+	 * Get Info Event 
+	 * @author richard hoppes
+	 * 
+	 */	
 	public class GetInfoEvent extends Event {
 		
 		public static const RESULT:String = "GetInfoEvent.RESULT";

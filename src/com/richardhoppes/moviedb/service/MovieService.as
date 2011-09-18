@@ -182,10 +182,20 @@ package com.richardhoppes.moviedb.service {
 			}
 		}
 		
+		/**
+		 * Retrieve images for the provided tmdb id or imdb id
+		 * @param id tmdbId or imdbId
+		 * @return void 
+		 */
 		public function getImages(id:String):void {
 			loadURL(buildURL(MOVIE_GET_IMAGES_METHOD, escape(id)), getImages_ResultHandler);
 		}
 		
+		/**
+		 * Handles getImages result
+		 * @param e Event  
+		 * @return void
+		 */
 		private function getImages_ResultHandler(e:Event):void {	
 			var results:ArrayCollection = ResponseUtil.getImages(e.currentTarget.data as String);
 			if(results.length > 0) {
@@ -195,6 +205,26 @@ package com.richardhoppes.moviedb.service {
 			}
 		}
 
+		/**
+		 * Retrieve images for the provided tmdb id or imdb id
+		 * @param order String sorting order (asc, desc)
+		 * @param orderBy String result sorting (title, rating, release 
+		 * @param perPage Number number of results per page
+		 * @param page Number current page
+		 * @param query String title search
+		 * @param minVotes Number minimum number of votes a movie has
+		 * @param ratingMin Number minimum movie rating
+		 * @param ratingMax Number maximum movie rating, required if rating min is used
+		 * @param genres String one or more genre ids, comma delimited
+		 * @param genresSelector String used if more than one genre is specified (and, or)
+		 * @param releaseMin int min release date (epoch value) 
+		 * @param releaseMax int max release date (epoch value)
+		 * @param year String release year (19##, 20##)
+		 * @param certifications String MPAA ratings, comma separated (G, PG, PG-13, R, NC-17), always an or search
+		 * @param companies String one or more company id, comma delimited
+		 * @param countries String one or more country codes, comma delimited
+		 * @return void 
+		 */
 		public function browse(order:String = "asc", orderBy:String = "title", perPage:Number = 30, page:Number = 1, query:String = null, 
 			minVotes:Number = -1, ratingMin:Number = -1, ratingMax:Number = -1, genres:String = null, genresSelector:String = "and", 
 			releaseMin:int = 0, releaseMax:int = 0, year:String = null, certifications:String = null, companies:String = null, countries:String = null):void {

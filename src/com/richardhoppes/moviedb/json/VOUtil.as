@@ -4,6 +4,7 @@ package com.richardhoppes.moviedb.json {
 	import com.richardhoppes.moviedb.vo.GenreVO;
 	import com.richardhoppes.moviedb.vo.ImageVO;
 	import com.richardhoppes.moviedb.vo.LatestVO;
+	import com.richardhoppes.moviedb.vo.MovieBrowseVO;
 	import com.richardhoppes.moviedb.vo.MovieImdbLookupVO;
 	import com.richardhoppes.moviedb.vo.MovieInfoVO;
 	import com.richardhoppes.moviedb.vo.MovieSearchVO;
@@ -74,6 +75,14 @@ package com.richardhoppes.moviedb.json {
 			}
 			
 			return movieInfoVO;
+		}
+		
+		public static function createMovieBrowseVO(object:Object):MovieBrowseVO {
+			var movieBrowseVO:MovieBrowseVO = MovieBrowseVO(VOUtil.createMovieVO(object, new MovieBrowseVO()));
+			movieBrowseVO.runtime = DataTypeUtil.handleNumber(object.runtime);
+			movieBrowseVO.adult = DataTypeUtil.handleBoolean(object.adult); 
+			movieBrowseVO.score = DataTypeUtil.handleNumber(object.score);
+			return movieBrowseVO;
 		}
 		
 		public static function createMovieVO(object:Object, movieVO:MovieVO):MovieVO {

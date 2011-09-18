@@ -3,6 +3,7 @@ package com.richardhoppes.moviedb.json {
 	import com.richardhoppes.moviedb.json.VOUtil;
 	import com.richardhoppes.moviedb.vo.ImageVO;
 	import com.richardhoppes.moviedb.vo.LatestVO;
+	import com.richardhoppes.moviedb.vo.MovieBrowseVO;
 	import com.richardhoppes.moviedb.vo.MovieImdbLookupVO;
 	import com.richardhoppes.moviedb.vo.MovieInfoVO;
 	import com.richardhoppes.moviedb.vo.MovieSearchVO;
@@ -100,6 +101,18 @@ package com.richardhoppes.moviedb.json {
 				}
 			}
 			return results;
+		}
+		
+		public static function browse(response:String):ArrayCollection {
+			var result:ArrayCollection = new ArrayCollection();
+			var jsonResult:Object = ParseUtil.decodeAsObject(response);
+			if(jsonResult.length > 0) {
+				for each (var movie:Object in jsonResult) {
+					var movieVO:MovieBrowseVO = VOUtil.createMovieBrowseVO(movie);
+					result.addItem(movieVO);
+				} 
+			}
+			return result;
 		}
 	}
 }

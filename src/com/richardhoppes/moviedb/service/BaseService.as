@@ -67,10 +67,13 @@ package com.richardhoppes.moviedb.service {
 			dispatchEvent(new ServiceErrorEvent(ServiceErrorEvent.SECURITY_ERROR, new ServiceError(event.text, event.errorID))); 
 		}
 		
-		protected function buildURL(method:String, args:String = null):String {
+		protected function buildURL(method:String, args:String = null, trailingSlash:Boolean = true):String {
 			var url:String = BASE_API_URL + method + "/" + language + "/json/" + apiKey;
 			if(args != null) {
-				url =  url + "/" + args; 
+				if(trailingSlash)
+					url += "/" + args;
+				else
+					url += args;
 			}
 			return url;
 		}

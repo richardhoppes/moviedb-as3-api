@@ -195,17 +195,71 @@ package com.richardhoppes.moviedb.service {
 			}
 		}
 
-		
-		/*
-		TODO: Implement these methods
-		
-		public function browse():void {
-			loadURL(buildURL(MOVIE_BROWSE_METHOD), browse_ResultHandler);
+		public function browse(order:String = "asc", orderBy:String = "title", perPage:Number = 30, page:Number = 1, query:String = null, 
+			minVotes:Number = -1, ratingMin:Number = -1, ratingMax:Number = -1, genres:String = null, genresSelector:String = "and", 
+			releaseMin:int = 0, releaseMax:int = 0, year:String = null, certifications:String = null, companies:String = null, countries:String = null):void {
+			
+			var queryString:String = "";
+			
+			if(order != 'asc' && order != 'desc') 
+				order = 'asc';
+
+			
+			if(orderBy != 'title' && orderBy != 'release' && orderBy != 'rating') 
+				orderBy = 'title';
+
+			queryString = "?order=asc";
+			queryString += "&order_by=" + orderBy;
+			queryString += "&per_page=" + perPage;
+			queryString += "&page=" + page;
+			
+			if(query != null)
+				queryString += "&query=" + escape(query);
+			
+			if(minVotes != -1)
+				queryString += "&min_votes=" + minVotes; 
+			
+			if(ratingMin != -1)
+				queryString += "&rating_min=" + ratingMin;
+			
+			if(ratingMax != -1)
+				queryString += "&rating_max=" + ratingMax;
+			
+			if(genres != null)
+				queryString += "&genres=" + genres;
+			
+			if(genres != null && genresSelector != null && genresSelector == 'and' || genresSelector == 'or') 
+				queryString += "&genres_selector=" + genresSelector;
+
+			if(releaseMin != 0 && releaseMax != 0) {
+				queryString += "&release_min=" + releaseMin;
+				queryString += "&release_max=" + releaseMax;
+			}
+				
+			if(year != null)
+				queryString += "&year=" + year;
+			
+			if(certifications != null)
+				queryString += "&certifications=" + certifications;
+			
+			if(companies != null)
+				queryString += "&companies=" + companies;
+
+			if(countries != null)
+				queryString += "&countries=" + countries;
+						
+			trace(buildURL(MOVIE_BROWSE_METHOD, queryString, false));
+			loadURL(buildURL(MOVIE_BROWSE_METHOD, queryString, false), browse_ResultHandler);
 		}
 		
 		private function browse_ResultHandler(e:Event):void {	
-			trace("browse result:" + e.currentTarget.data as String);
+			var results:ArrayCollection = ResponseUtil.browse(e.currentTarget.data as String);
+			if(results.length > 0) {
+				dispatchEvent(new BrowseEvent(BrowseEvent.RESULT, results, e.currentTarget.data as String));
+			} else {
+				dispatchEvent(new BrowseEvent(BrowseEvent.NO_RESULTS, results, e.currentTarget.data as String));
+			}
 		}
-		*/
+
 	}
 }

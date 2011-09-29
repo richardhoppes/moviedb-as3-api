@@ -2,7 +2,7 @@ package com.richardhoppes.moviedb.service {
 	import com.adobe.serialization.json.JSON;
 	import com.adobe.serialization.json.JSONParseError;
 	import com.richardhoppes.moviedb.error.ServiceError;
-	import com.richardhoppes.moviedb.event.movie.ServiceErrorEvent;
+	import com.richardhoppes.moviedb.event.ServiceErrorEvent;
 	
 	import flash.errors.IOError;
 	import flash.events.ErrorEvent;
@@ -67,13 +67,23 @@ package com.richardhoppes.moviedb.service {
 			dispatchEvent(new ServiceErrorEvent(ServiceErrorEvent.SECURITY_ERROR, new ServiceError(event.text, event.errorID))); 
 		}
 		
-		protected function buildURL(method:String, args:String = null, trailingSlash:Boolean = true):String {
+		
+		protected function buildRequestURL(method:String, args:String = null):String {
 			var url:String = BASE_API_URL + method + "/" + language + "/json/" + apiKey;
+			return buildBaseURL(url, args);
+		}
+		
+		protected function buildAuthURL(method:String, args:String = null):String {
+			var url:String = BASE_API_URL + method + "/json/" + apiKey;
+			return buildBaseURL(url, args);
+		}
+										   
+		private function buildBaseURL(url:String, args:String):String {
 			if(args != null) {
-				if(trailingSlash)
-					url += "/" + args;
-				else
+				if(args.charAt(0) == '?') 
 					url += args;
+				else
+					url += "/" + args;
 			}
 			return url;
 		}

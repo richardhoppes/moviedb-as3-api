@@ -30,6 +30,7 @@ package com.richardhoppes.moviedb.service {
 		public const MOVIE_GET_INFO_METHOD:String = "Movie.getInfo";
 		public const MOVIE_GET_IMAGES_METHOD:String = "Movie.getImages";
 		public const MOVIE_BROWSE_METHOD:String = "Movie.browse";
+		public const MOVIE_ADD_RATING:String = "Movie.addRating";
 
 		public function MovieService() {
 			super();
@@ -41,7 +42,7 @@ package com.richardhoppes.moviedb.service {
 		 * @return void 
 		 */
 		public function movieSearch(name:String):void {
-			loadURL(buildURL(MOVIE_SEARCH_METHOD, escape(name)), movieSearch_ResultHandler);
+			loadURL(buildRequestURL(MOVIE_SEARCH_METHOD, escape(name)), movieSearch_ResultHandler);
 		}
 	
 		/**
@@ -64,7 +65,7 @@ package com.richardhoppes.moviedb.service {
 		 * @return void 
 		 */
 		public function imdbLookup(imdbId:String):void {
-			loadURL(buildURL(MOVIE_IMDB_LOOKUP_METHOD, escape(imdbId)), imdbLookup_ResultHandler);
+			loadURL(buildRequestURL(MOVIE_IMDB_LOOKUP_METHOD, escape(imdbId)), imdbLookup_ResultHandler);
 		}
 		
 		/**
@@ -87,7 +88,7 @@ package com.richardhoppes.moviedb.service {
 		 * @return void 
 		 */
 		public function getInfo(tmdbId:String):void {
-			loadURL(buildURL(MOVIE_GET_INFO_METHOD, escape(tmdbId)), getInfo_ResultHandler);
+			loadURL(buildRequestURL(MOVIE_GET_INFO_METHOD, escape(tmdbId)), getInfo_ResultHandler);
 		}
 		
 		/**
@@ -110,7 +111,7 @@ package com.richardhoppes.moviedb.service {
 		 * @return void 
 		 */
 		public function getTranslations(id:String):void {
-			loadURL(buildURL(MOVIE_GET_TRANSLATIONS_METHOD, escape(id)), getTranslations_ResultHandler);
+			loadURL(buildRequestURL(MOVIE_GET_TRANSLATIONS_METHOD, escape(id)), getTranslations_ResultHandler);
 		}
 		
 		/**
@@ -143,7 +144,7 @@ package com.richardhoppes.moviedb.service {
 			} else {
 				idList = ids;
 			}
-			loadURL(buildURL(MOVIE_GET_VERSION_METHOD, escape(idList)), getVersion_ResultHandler);
+			loadURL(buildRequestURL(MOVIE_GET_VERSION_METHOD, escape(idList)), getVersion_ResultHandler);
 		}
 		
 		/**
@@ -165,7 +166,7 @@ package com.richardhoppes.moviedb.service {
 		 * @return void 
 		 */
 		public function getLatest():void {
-			loadURL(buildURL(MOVIE_GET_LATEST_METHOD), getLatest_ResultHandler);
+			loadURL(buildRequestURL(MOVIE_GET_LATEST_METHOD), getLatest_ResultHandler);
 		}
 		
 		/**
@@ -188,7 +189,7 @@ package com.richardhoppes.moviedb.service {
 		 * @return void 
 		 */
 		public function getImages(id:String):void {
-			loadURL(buildURL(MOVIE_GET_IMAGES_METHOD, escape(id)), getImages_ResultHandler);
+			loadURL(buildRequestURL(MOVIE_GET_IMAGES_METHOD, escape(id)), getImages_ResultHandler);
 		}
 		
 		/**
@@ -278,8 +279,7 @@ package com.richardhoppes.moviedb.service {
 			if(countries != null)
 				queryString += "&countries=" + countries;
 						
-			trace(buildURL(MOVIE_BROWSE_METHOD, queryString, false));
-			loadURL(buildURL(MOVIE_BROWSE_METHOD, queryString, false), browse_ResultHandler);
+			loadURL(buildRequestURL(MOVIE_BROWSE_METHOD, queryString), browse_ResultHandler);
 		}
 		
 		private function browse_ResultHandler(e:Event):void {	
@@ -290,6 +290,5 @@ package com.richardhoppes.moviedb.service {
 				dispatchEvent(new BrowseEvent(BrowseEvent.NO_RESULTS, results, e.currentTarget.data as String));
 			}
 		}
-
 	}
 }

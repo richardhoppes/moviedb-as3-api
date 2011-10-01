@@ -22,6 +22,8 @@ package com.richardhoppes.moviedb.service {
 	 */	
 	public class BaseService extends EventDispatcher {
 		protected const BASE_API_URL:String = "http://api.themoviedb.org/2.1/";
+		protected const BASE_AUTH_URL:String = "http://www.themoviedb.org/auth/";
+		
 		
 		public function BaseService() {
 			super();
@@ -68,8 +70,12 @@ package com.richardhoppes.moviedb.service {
 		}
 		
 		
-		protected function buildRequestURL(method:String, args:String = null):String {
-			var url:String = BASE_API_URL + method + "/" + language + "/json/" + apiKey;
+		protected function buildRequestURL(method:String, args:String = null, includeLanguage:Boolean = true):String {
+			var url:String = BASE_API_URL + method;
+			if(includeLanguage) {
+				url += "/" + language;
+			}
+			url += "/json/" + apiKey;
 			return buildBaseURL(url, args);
 		}
 		

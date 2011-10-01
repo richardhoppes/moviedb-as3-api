@@ -1,18 +1,17 @@
 package com.richardhoppes.moviedb.json {
-	import com.richardhoppes.moviedb.json.DataTypeUtil;
 	import com.richardhoppes.moviedb.vo.CountryVO;
 	import com.richardhoppes.moviedb.vo.GenreVO;
 	import com.richardhoppes.moviedb.vo.ImageVO;
-	import com.richardhoppes.moviedb.vo.LatestVO;
-	import com.richardhoppes.moviedb.vo.MovieBrowseVO;
-	import com.richardhoppes.moviedb.vo.MovieImdbLookupVO;
+	import com.richardhoppes.moviedb.vo.LatestMovieVO;
+	import com.richardhoppes.moviedb.vo.BrowseMovieVO;
+	import com.richardhoppes.moviedb.vo.ImdbMovieLookupVO;
 	import com.richardhoppes.moviedb.vo.MovieInfoVO;
 	import com.richardhoppes.moviedb.vo.MovieSearchVO;
 	import com.richardhoppes.moviedb.vo.MovieVO;
 	import com.richardhoppes.moviedb.vo.PersonVO;
-	import com.richardhoppes.moviedb.vo.StudioVO;
-	import com.richardhoppes.moviedb.vo.TranslationVO;
-	import com.richardhoppes.moviedb.vo.VersionVO;
+	import com.richardhoppes.moviedb.vo.MovieStudioVO;
+	import com.richardhoppes.moviedb.vo.MovieTranslationVO;
+	import com.richardhoppes.moviedb.vo.MovieVersionVO;
 	
 	import mx.collections.ArrayCollection;
 	
@@ -23,8 +22,8 @@ package com.richardhoppes.moviedb.json {
 	 */	
 	public class VOUtil {
 		
-		public static function createMovieImdbLookupVO(object:Object):MovieImdbLookupVO {
-			var movieImdbLookupVO:MovieImdbLookupVO = MovieImdbLookupVO(VOUtil.createMovieVO(object, new MovieImdbLookupVO()));
+		public static function createImdbMovieLookupVO(object:Object):ImdbMovieLookupVO {
+			var movieImdbLookupVO:ImdbMovieLookupVO = ImdbMovieLookupVO(VOUtil.createMovieVO(object, new ImdbMovieLookupVO()));
 			movieImdbLookupVO.runtime = DataTypeUtil.handleNumber(object.runtime);
 			
 			movieImdbLookupVO.genres = new ArrayCollection();
@@ -66,7 +65,7 @@ package com.richardhoppes.moviedb.json {
 			
 			movieInfoVO.studios = new ArrayCollection();
 			for each (var studio:Object in object.studios) {
-				movieInfoVO.studios.addItem(createStudioVO(studio));
+				movieInfoVO.studios.addItem(createMovieStudioVO(studio));
 			}
 			
 			movieInfoVO.people = new ArrayCollection();
@@ -77,8 +76,8 @@ package com.richardhoppes.moviedb.json {
 			return movieInfoVO;
 		}
 		
-		public static function createMovieBrowseVO(object:Object):MovieBrowseVO {
-			var movieBrowseVO:MovieBrowseVO = MovieBrowseVO(VOUtil.createMovieVO(object, new MovieBrowseVO()));
+		public static function createBrowseMovieVO(object:Object):BrowseMovieVO {
+			var movieBrowseVO:BrowseMovieVO = BrowseMovieVO(VOUtil.createMovieVO(object, new BrowseMovieVO()));
 			movieBrowseVO.runtime = DataTypeUtil.handleNumber(object.runtime);
 			movieBrowseVO.adult = DataTypeUtil.handleBoolean(object.adult); 
 			movieBrowseVO.score = DataTypeUtil.handleNumber(object.score);
@@ -142,8 +141,8 @@ package com.richardhoppes.moviedb.json {
 			return personVO;
 		}
 		
-		public static function createStudioVO(object:Object):StudioVO {
-			var studioVO:StudioVO = new StudioVO;
+		public static function createMovieStudioVO(object:Object):MovieStudioVO {
+			var studioVO:MovieStudioVO = new MovieStudioVO;
 			studioVO.url = object.url;
 			studioVO.name = object.name;
 			studioVO.id = object.id;
@@ -158,8 +157,8 @@ package com.richardhoppes.moviedb.json {
 			return countryVO;
 		}
 		
-		public static function createTranslationVO(object:Object):TranslationVO {
-			var translationVO:TranslationVO = new TranslationVO;
+		public static function createMovieTranslationVO(object:Object):MovieTranslationVO {
+			var translationVO:MovieTranslationVO = new MovieTranslationVO;
 			translationVO.englishName = object.english_name;
 			translationVO.nativeName = object.native_name;
 			translationVO.iso639_1 = object.iso_639_1;
@@ -177,8 +176,8 @@ package com.richardhoppes.moviedb.json {
 			return imageVO;
 		}
 		
-		public static function createVersionVO(object:Object):VersionVO {
-			var versionVO:VersionVO = new VersionVO();
+		public static function createMovieVersionVO(object:Object):MovieVersionVO {
+			var versionVO:MovieVersionVO = new MovieVersionVO();
 			versionVO.name = object.name;
 			versionVO.id = object.id;
 			versionVO.imdbId = object.imdb_id;
@@ -187,8 +186,8 @@ package com.richardhoppes.moviedb.json {
 			return versionVO;
 		}
 		
-		public static function createLatestVO(object:Object):LatestVO {
-			var latestVO:LatestVO = new LatestVO();
+		public static function createLatestMovieVO(object:Object):LatestMovieVO {
+			var latestVO:LatestMovieVO = new LatestMovieVO();
 			latestVO.name = object.name;
 			latestVO.id = object.id;
 			latestVO.imdbId = object.imdb_id;

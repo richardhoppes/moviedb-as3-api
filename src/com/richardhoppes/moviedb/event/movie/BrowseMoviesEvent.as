@@ -4,14 +4,14 @@ package com.richardhoppes.moviedb.event.movie {
 	import mx.collections.ArrayCollection;
 	
 	/**
-	 * Get Translations Event 
+	 * Browse Movies Event 
 	 * @author richard hoppes
 	 * 
 	 */	
-	public class GetTranslationsEvent extends Event {
+	public class BrowseMoviesEvent extends Event {
 		
-		public static const RESULT:String = "GetTranslationsEvent.RESULT";
-		public static const NO_RESULTS:String = "GetTranslationsEvent.NO_RESULT";
+		public static const RESULT:String = "BrowseMoviesEvent.RESULT";
+		public static const NO_RESULTS:String = "BrowseMoviesEvent.NO_RESULT";
 		
 		private var _results:ArrayCollection;
 		
@@ -25,14 +25,14 @@ package com.richardhoppes.moviedb.event.movie {
 			return _rawResult;
 		}
 		
-		public function GetTranslationsEvent(type:String, results:ArrayCollection, rawResult:String, bubbles:Boolean = false) {
+		public function BrowseMoviesEvent(type:String, results:ArrayCollection, rawResult:String, bubbles:Boolean = false) {
 			super(type, bubbles);
 			_results = results;
 			_rawResult = rawResult;
 		}
 		
 		override public function clone():Event {
-			return new GetTranslationsEvent(type, results, rawResult, bubbles);
+			return new BrowseMoviesEvent(type, results, rawResult, bubbles);
 		}
 	}
 }

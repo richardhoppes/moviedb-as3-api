@@ -4,14 +4,14 @@ package com.richardhoppes.moviedb.event.movie {
 	import mx.collections.ArrayCollection;
 	
 	/**
-	 * Get Images Event 
+	 * Get Movie Version Event 
 	 * @author richard hoppes
 	 * 
 	 */	
-	public class GetImagesEvent extends Event {
+	public class GetMovieVersionEvent extends Event {
 		
-		public static const RESULT:String = "GetImagesEvent.RESULT";
-		public static const NO_RESULTS:String = "GetImagesEvent.NO_RESULT";
+		public static const RESULT:String = "GetMovieVersionEvent.RESULT";
+		public static const NO_RESULTS:String = "GetMovieVersionEvent.NO_RESULT";
 		
 		private var _results:ArrayCollection;
 		
@@ -25,14 +25,14 @@ package com.richardhoppes.moviedb.event.movie {
 			return _rawResult;
 		}
 		
-		public function GetImagesEvent(type:String, results:ArrayCollection, rawResult:String, bubbles:Boolean = false) {
+		public function GetMovieVersionEvent(type:String, results:ArrayCollection, rawResult:String, bubbles:Boolean = false) {
 			super(type, bubbles);
 			_results = results;
 			_rawResult = rawResult;
 		}
 		
 		override public function clone():Event {
-			return new GetImagesEvent(type, results, rawResult, bubbles);
+			return new GetMovieVersionEvent(type, results, rawResult, bubbles);
 		}
 	}
 }

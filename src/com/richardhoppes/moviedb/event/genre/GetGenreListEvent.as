@@ -1,17 +1,17 @@
-package com.richardhoppes.moviedb.event.movie {
+package com.richardhoppes.moviedb.event.genre {
 	import flash.events.Event;
 	
 	import mx.collections.ArrayCollection;
-	
+
 	/**
-	 * Get Version Event 
+	 * Get Genre List Event 
 	 * @author richard hoppes
 	 * 
 	 */	
-	public class GetVersionEvent extends Event {
+	public class GetGenreListEvent extends Event {
 		
-		public static const RESULT:String = "GetVersionEvent.RESULT";
-		public static const NO_RESULTS:String = "GetVersionEvent.NO_RESULT";
+		public static const RESULT:String = "GetGenreListEvent.RESULT";
+		public static const NO_RESULTS:String = "GetGenreListEvent.NO_RESULTS";
 		
 		private var _results:ArrayCollection;
 		
@@ -25,14 +25,14 @@ package com.richardhoppes.moviedb.event.movie {
 			return _rawResult;
 		}
 		
-		public function GetVersionEvent(type:String, results:ArrayCollection, rawResult:String, bubbles:Boolean = false) {
+		public function GetGenreListEvent(type:String, results:ArrayCollection, rawResult:String, bubbles:Boolean = false) {
 			super(type, bubbles);
 			_results = results;
 			_rawResult = rawResult;
 		}
 		
 		override public function clone():Event {
-			return new GetVersionEvent(type, results, rawResult, bubbles);
+			return new GetGenreListEvent(type, results, rawResult, bubbles);
 		}
 	}
 }

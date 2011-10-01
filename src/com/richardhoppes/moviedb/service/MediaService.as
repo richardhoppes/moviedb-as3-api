@@ -1,5 +1,5 @@
 package com.richardhoppes.moviedb.service {
-	import com.richardhoppes.moviedb.json.ResponseUtil;
+	import com.richardhoppes.moviedb.json.MovieResponseUtil;
 	
 	import flash.events.Event;
 	

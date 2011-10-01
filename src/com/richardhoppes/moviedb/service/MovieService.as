@@ -1,15 +1,15 @@
 package com.richardhoppes.moviedb.service {
-	import com.richardhoppes.moviedb.event.movie.BrowseEvent;
-	import com.richardhoppes.moviedb.event.movie.GetImagesEvent;
-	import com.richardhoppes.moviedb.event.movie.GetInfoEvent;
-	import com.richardhoppes.moviedb.event.movie.GetLatestEvent;
-	import com.richardhoppes.moviedb.event.movie.GetTranslationsEvent;
-	import com.richardhoppes.moviedb.event.movie.GetVersionEvent;
-	import com.richardhoppes.moviedb.event.movie.IMDBLookupEvent;
+	import com.richardhoppes.moviedb.event.movie.BrowseMoviesEvent;
+	import com.richardhoppes.moviedb.event.movie.GetMovieImagesEvent;
+	import com.richardhoppes.moviedb.event.movie.GetMovieInfoEvent;
+	import com.richardhoppes.moviedb.event.movie.GetLatestMovieEvent;
+	import com.richardhoppes.moviedb.event.movie.GetMovieTranslationsEvent;
+	import com.richardhoppes.moviedb.event.movie.GetMovieVersionEvent;
+	import com.richardhoppes.moviedb.event.movie.IMDBMovieLookupEvent;
 	import com.richardhoppes.moviedb.event.movie.MovieSearchEvent;
-	import com.richardhoppes.moviedb.json.ResponseUtil;
-	import com.richardhoppes.moviedb.vo.LatestVO;
-	import com.richardhoppes.moviedb.vo.MovieImdbLookupVO;
+	import com.richardhoppes.moviedb.json.MovieResponseUtil;
+	import com.richardhoppes.moviedb.vo.LatestMovieVO;
+	import com.richardhoppes.moviedb.vo.ImdbMovieLookupVO;
 	import com.richardhoppes.moviedb.vo.MovieInfoVO;
 	
 	import flash.events.Event;
@@ -51,7 +51,7 @@ package com.richardhoppes.moviedb.service {
 		 * @return void
 		 */
 		private function movieSearch_ResultHandler(e:Event):void {
-			var results:ArrayCollection = ResponseUtil.movieSearch(e.currentTarget.data as String);
+			var results:ArrayCollection = MovieResponseUtil.movieSearch(e.currentTarget.data as String);
 			if(results.length > 0) {
 				dispatchEvent(new MovieSearchEvent(MovieSearchEvent.RESULT, results, e.currentTarget.data as String));
 			} else {
@@ -74,11 +74,11 @@ package com.richardhoppes.moviedb.service {
 		 * @return void
 		 */
 		private function imdbLookup_ResultHandler(e:Event):void {	
-			var result:MovieImdbLookupVO = ResponseUtil.imdbLookup(e.currentTarget.data as String);
+			var result:ImdbMovieLookupVO = MovieResponseUtil.imdbLookup(e.currentTarget.data as String);
 			if(result.id != null && result.id != "") {
-				dispatchEvent(new IMDBLookupEvent(IMDBLookupEvent.RESULT, result, e.currentTarget.data as String));
+				dispatchEvent(new IMDBMovieLookupEvent(IMDBMovieLookupEvent.RESULT, result, e.currentTarget.data as String));
 			} else {
-				dispatchEvent(new IMDBLookupEvent(IMDBLookupEvent.NO_RESULTS, result, e.currentTarget.data as String));
+				dispatchEvent(new IMDBMovieLookupEvent(IMDBMovieLookupEvent.NO_RESULTS, result, e.currentTarget.data as String));
 			}
 		}
 		
@@ -97,11 +97,11 @@ package com.richardhoppes.moviedb.service {
 		 * @return void
 		 */
 		private function getInfo_ResultHandler(e:Event):void {
-			var result:MovieInfoVO = ResponseUtil.getInfo(e.currentTarget.data as String);
+			var result:MovieInfoVO = MovieResponseUtil.getInfo(e.currentTarget.data as String);
 			if(result.id != null && result.id != "") {
-				dispatchEvent(new GetInfoEvent(GetInfoEvent.RESULT, result, e.currentTarget.data as String));
+				dispatchEvent(new GetMovieInfoEvent(GetMovieInfoEvent.RESULT, result, e.currentTarget.data as String));
 			} else {
-				dispatchEvent(new GetInfoEvent(GetInfoEvent.NO_RESULTS, result, e.currentTarget.data as String));
+				dispatchEvent(new GetMovieInfoEvent(GetMovieInfoEvent.NO_RESULTS, result, e.currentTarget.data as String));
 			}
 		}
 		
@@ -120,11 +120,11 @@ package com.richardhoppes.moviedb.service {
 		 * @return void
 		 */
 		private function getTranslations_ResultHandler(e:Event):void {	
-			var results:ArrayCollection = ResponseUtil.getTranslations(e.currentTarget.data as String);
+			var results:ArrayCollection = MovieResponseUtil.getTranslations(e.currentTarget.data as String);
 			if(results.length > 0) {
-				dispatchEvent(new GetTranslationsEvent(GetTranslationsEvent.RESULT, results, e.currentTarget.data as String));
+				dispatchEvent(new GetMovieTranslationsEvent(GetMovieTranslationsEvent.RESULT, results, e.currentTarget.data as String));
 			} else {
-				dispatchEvent(new GetTranslationsEvent(GetTranslationsEvent.NO_RESULTS, results, e.currentTarget.data as String));
+				dispatchEvent(new GetMovieTranslationsEvent(GetMovieTranslationsEvent.NO_RESULTS, results, e.currentTarget.data as String));
 			}
 		}
 		
@@ -153,11 +153,11 @@ package com.richardhoppes.moviedb.service {
 		 * @return void
 		 */
 		private function getVersion_ResultHandler(e:Event):void {	
-			var results:ArrayCollection = ResponseUtil.getVersion(e.currentTarget.data as String);
+			var results:ArrayCollection = MovieResponseUtil.getVersion(e.currentTarget.data as String);
 			if(results.length > 0) {
-				dispatchEvent(new GetVersionEvent(GetVersionEvent.RESULT, results, e.currentTarget.data as String));
+				dispatchEvent(new GetMovieVersionEvent(GetMovieVersionEvent.RESULT, results, e.currentTarget.data as String));
 			} else {
-				dispatchEvent(new GetVersionEvent(GetVersionEvent.NO_RESULTS, results, e.currentTarget.data as String));
+				dispatchEvent(new GetMovieVersionEvent(GetMovieVersionEvent.NO_RESULTS, results, e.currentTarget.data as String));
 			}
 		}
 		
@@ -175,11 +175,11 @@ package com.richardhoppes.moviedb.service {
 		 * @return void
 		 */
 		private function getLatest_ResultHandler(e:Event):void {	
-			var result:LatestVO = ResponseUtil.getLatest(e.currentTarget.data as String);
+			var result:LatestMovieVO = MovieResponseUtil.getLatest(e.currentTarget.data as String);
 			if(result.id != null && result.id != "") {
-				dispatchEvent(new GetLatestEvent(GetLatestEvent.RESULT, result, e.currentTarget.data as String));
+				dispatchEvent(new GetLatestMovieEvent(GetLatestMovieEvent.RESULT, result, e.currentTarget.data as String));
 			} else {
-				dispatchEvent(new GetLatestEvent(GetLatestEvent.NO_RESULTS, result, e.currentTarget.data as String));
+				dispatchEvent(new GetLatestMovieEvent(GetLatestMovieEvent.NO_RESULTS, result, e.currentTarget.data as String));
 			}
 		}
 		
@@ -198,11 +198,11 @@ package com.richardhoppes.moviedb.service {
 		 * @return void
 		 */
 		private function getImages_ResultHandler(e:Event):void {	
-			var results:ArrayCollection = ResponseUtil.getImages(e.currentTarget.data as String);
+			var results:ArrayCollection = MovieResponseUtil.getImages(e.currentTarget.data as String);
 			if(results.length > 0) {
-				dispatchEvent(new GetImagesEvent(GetImagesEvent.RESULT, results, e.currentTarget.data as String));
+				dispatchEvent(new GetMovieImagesEvent(GetMovieImagesEvent.RESULT, results, e.currentTarget.data as String));
 			} else {
-				dispatchEvent(new GetImagesEvent(GetImagesEvent.NO_RESULTS, results, e.currentTarget.data as String));
+				dispatchEvent(new GetMovieImagesEvent(GetMovieImagesEvent.NO_RESULTS, results, e.currentTarget.data as String));
 			}
 		}
 
@@ -283,11 +283,11 @@ package com.richardhoppes.moviedb.service {
 		}
 		
 		private function browse_ResultHandler(e:Event):void {	
-			var results:ArrayCollection = ResponseUtil.browse(e.currentTarget.data as String);
+			var results:ArrayCollection = MovieResponseUtil.browse(e.currentTarget.data as String);
 			if(results.length > 0) {
-				dispatchEvent(new BrowseEvent(BrowseEvent.RESULT, results, e.currentTarget.data as String));
+				dispatchEvent(new BrowseMoviesEvent(BrowseMoviesEvent.RESULT, results, e.currentTarget.data as String));
 			} else {
-				dispatchEvent(new BrowseEvent(BrowseEvent.NO_RESULTS, results, e.currentTarget.data as String));
+				dispatchEvent(new BrowseMoviesEvent(BrowseMoviesEvent.NO_RESULTS, results, e.currentTarget.data as String));
 			}
 		}
 	}

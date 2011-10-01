@@ -4,14 +4,14 @@ package com.richardhoppes.moviedb.event.movie {
 	import flash.events.Event;
 	
 	/**
-	 * Get Info Event 
+	 * Get Movie Info Event 
 	 * @author richard hoppes
 	 * 
 	 */	
-	public class GetInfoEvent extends Event {
+	public class GetMovieInfoEvent extends Event {
 		
-		public static const RESULT:String = "GetInfoEvent.RESULT";
-		public static const NO_RESULTS:String = "GetInfoEvent.NO_RESULT";
+		public static const RESULT:String = "GetMovieInfoEvent.RESULT";
+		public static const NO_RESULTS:String = "GetMovieInfoEvent.NO_RESULT";
 		
 		private var _result:MovieInfoVO;
 		
@@ -25,14 +25,14 @@ package com.richardhoppes.moviedb.event.movie {
 			return _rawResult;
 		}
 		
-		public function GetInfoEvent(type:String, result:MovieInfoVO, rawResult:String, bubbles:Boolean = false) {
+		public function GetMovieInfoEvent(type:String, result:MovieInfoVO, rawResult:String, bubbles:Boolean = false) {
 			super(type, bubbles);
 			_result = result;
 			_rawResult = rawResult;
 		}
 		
 		override public function clone():Event {
-			return new GetInfoEvent(type, result, rawResult, bubbles);
+			return new GetMovieInfoEvent(type, result, rawResult, bubbles);
 		}
 	}
 }

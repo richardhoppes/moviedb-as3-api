@@ -1,15 +1,13 @@
 package com.richardhoppes.moviedb.json {
-	import com.richardhoppes.moviedb.json.ParseUtil;
-	import com.richardhoppes.moviedb.json.VOUtil;
 	import com.richardhoppes.moviedb.vo.ImageVO;
-	import com.richardhoppes.moviedb.vo.LatestVO;
-	import com.richardhoppes.moviedb.vo.MovieBrowseVO;
-	import com.richardhoppes.moviedb.vo.MovieImdbLookupVO;
+	import com.richardhoppes.moviedb.vo.LatestMovieVO;
+	import com.richardhoppes.moviedb.vo.BrowseMovieVO;
+	import com.richardhoppes.moviedb.vo.ImdbMovieLookupVO;
 	import com.richardhoppes.moviedb.vo.MovieInfoVO;
 	import com.richardhoppes.moviedb.vo.MovieSearchVO;
 	import com.richardhoppes.moviedb.vo.MovieVO;
-	import com.richardhoppes.moviedb.vo.TranslationVO;
-	import com.richardhoppes.moviedb.vo.VersionVO;
+	import com.richardhoppes.moviedb.vo.MovieTranslationVO;
+	import com.richardhoppes.moviedb.vo.MovieVersionVO;
 	
 	import mx.collections.ArrayCollection;
 	
@@ -18,8 +16,8 @@ package com.richardhoppes.moviedb.json {
 	 * @author richard hoppes
 	 * 
 	 */	
-	public class ResponseUtil {
-		public function ResponseUtil() {
+	public class MovieResponseUtil {
+		public function MovieResponseUtil() {
 		}
 		
 		public static function movieSearch(response:String):ArrayCollection {
@@ -34,11 +32,11 @@ package com.richardhoppes.moviedb.json {
 			return result;
 		}
 		
-		public static function imdbLookup(response:String):MovieImdbLookupVO {
-			var result:MovieImdbLookupVO = new MovieImdbLookupVO();
+		public static function imdbLookup(response:String):ImdbMovieLookupVO {
+			var result:ImdbMovieLookupVO = new ImdbMovieLookupVO();
 			var jsonResult:Object = ParseUtil.decodeAsObject(response);
 			if(jsonResult.length > 0) {
-				result = VOUtil.createMovieImdbLookupVO(jsonResult[0]);
+				result = VOUtil.createImdbMovieLookupVO(jsonResult[0]);
 			}
 			return result;
 		}
@@ -57,7 +55,7 @@ package com.richardhoppes.moviedb.json {
 			var jsonResult:Object = ParseUtil.decodeAsObject(response);
 			if(jsonResult.length > 0) {
 				for(var i:Number = 0; i < jsonResult[0].translations.length; i++) {
-					var translationVO:TranslationVO = VOUtil.createTranslationVO(jsonResult[0].translations[i]);
+					var translationVO:MovieTranslationVO = VOUtil.createMovieTranslationVO(jsonResult[0].translations[i]);
 					result.addItem(translationVO);
 				}
 			}
@@ -69,18 +67,18 @@ package com.richardhoppes.moviedb.json {
 			var jsonResult:Object = ParseUtil.decodeAsObject(response);
 			if(jsonResult.length > 0) {
 				for each (var version:Object in jsonResult) {
-					var versionVO:VersionVO = VOUtil.createVersionVO(version);
+					var versionVO:MovieVersionVO = VOUtil.createMovieVersionVO(version);
 					result.addItem(versionVO);
 				} 
 			}
 			return result;
 		}
 		
-		public static function getLatest(response:String):LatestVO {
-			var result:LatestVO = new LatestVO();
+		public static function getLatest(response:String):LatestMovieVO {
+			var result:LatestMovieVO = new LatestMovieVO();
 			var jsonResult:Object = ParseUtil.decodeAsObject(response);
 			if(jsonResult.length > 0) {
-				result = VOUtil.createLatestVO(jsonResult[0]);
+				result = VOUtil.createLatestMovieVO(jsonResult[0]);
 			}
 			return result;
 		}
@@ -108,7 +106,7 @@ package com.richardhoppes.moviedb.json {
 			var jsonResult:Object = ParseUtil.decodeAsObject(response);
 			if(jsonResult.length > 0) {
 				for each (var movie:Object in jsonResult) {
-					var movieVO:MovieBrowseVO = VOUtil.createMovieBrowseVO(movie);
+					var movieVO:BrowseMovieVO = VOUtil.createBrowseMovieVO(movie);
 					result.addItem(movieVO);
 				} 
 			}

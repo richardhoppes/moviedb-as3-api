@@ -1,13 +1,13 @@
 package com.richardhoppes.moviedb.vo {
-	[RemoteClass(alias="com.richardhoppes.moviedb.vo.StudioVO")]
+	[RemoteClass(alias="com.richardhoppes.moviedb.vo.MovieStudioVO")]
 	
 	/**
-	 * Studio VO 
+	 * Movie Studio VO 
 	 * @author richard hoppes
 	 * 
 	 */	
-	public class StudioVO {
-		public function StudioVO() {
+	public class MovieStudioVO {
+		public function MovieStudioVO() {
 			super();
 		}
 		

@@ -1,18 +1,24 @@
 package com.richardhoppes.moviedb.service {
+	import com.richardhoppes.moviedb.error.PostError;
+	import com.richardhoppes.moviedb.event.PostErrorEvent;
+	import com.richardhoppes.moviedb.event.movie.AddMovieRatingEvent;
 	import com.richardhoppes.moviedb.event.movie.BrowseMoviesEvent;
+	import com.richardhoppes.moviedb.event.movie.GetLatestMovieEvent;
 	import com.richardhoppes.moviedb.event.movie.GetMovieImagesEvent;
 	import com.richardhoppes.moviedb.event.movie.GetMovieInfoEvent;
-	import com.richardhoppes.moviedb.event.movie.GetLatestMovieEvent;
 	import com.richardhoppes.moviedb.event.movie.GetMovieTranslationsEvent;
 	import com.richardhoppes.moviedb.event.movie.GetMovieVersionEvent;
 	import com.richardhoppes.moviedb.event.movie.IMDBMovieLookupEvent;
 	import com.richardhoppes.moviedb.event.movie.MovieSearchEvent;
 	import com.richardhoppes.moviedb.json.MovieResponseUtil;
-	import com.richardhoppes.moviedb.vo.MovieLatestVO;
+	import com.richardhoppes.moviedb.json.ParseUtil;
 	import com.richardhoppes.moviedb.vo.MovieImdbLookupVO;
 	import com.richardhoppes.moviedb.vo.MovieInfoVO;
+	import com.richardhoppes.moviedb.vo.MovieLatestVO;
 	
 	import flash.events.Event;
+	import flash.net.URLRequestMethod;
+	import flash.net.URLVariables;
 	
 	import mx.collections.ArrayCollection;
 	
@@ -30,7 +36,7 @@ package com.richardhoppes.moviedb.service {
 		public const MOVIE_GET_INFO_METHOD:String = "Movie.getInfo";
 		public const MOVIE_GET_IMAGES_METHOD:String = "Movie.getImages";
 		public const MOVIE_BROWSE_METHOD:String = "Movie.browse";
-		public const MOVIE_ADD_RATING:String = "Movie.addRating";
+		public const MOVIE_ADD_RATING_METHOD:String = "Movie.addRating";
 
 		public function MovieService() {
 			super();
@@ -42,7 +48,7 @@ package com.richardhoppes.moviedb.service {
 		 * @return void 
 		 */
 		public function movieSearch(name:String):void {
-			loadURL(buildRequestURL(MOVIE_SEARCH_METHOD, escape(name)), movieSearch_ResultHandler);
+			loadURL(buildGetURL(MOVIE_SEARCH_METHOD, escape(name)), movieSearch_ResultHandler);
 		}
 	
 		/**
@@ -65,7 +71,7 @@ package com.richardhoppes.moviedb.service {
 		 * @return void 
 		 */
 		public function imdbLookup(imdbId:String):void {
-			loadURL(buildRequestURL(MOVIE_IMDB_LOOKUP_METHOD, escape(imdbId)), imdbLookup_ResultHandler);
+			loadURL(buildGetURL(MOVIE_IMDB_LOOKUP_METHOD, escape(imdbId)), imdbLookup_ResultHandler);
 		}
 		
 		/**
@@ -88,7 +94,7 @@ package com.richardhoppes.moviedb.service {
 		 * @return void 
 		 */
 		public function getInfo(tmdbId:String):void {
-			loadURL(buildRequestURL(MOVIE_GET_INFO_METHOD, escape(tmdbId)), getInfo_ResultHandler);
+			loadURL(buildGetURL(MOVIE_GET_INFO_METHOD, escape(tmdbId)), getInfo_ResultHandler);
 		}
 		
 		/**
@@ -111,7 +117,7 @@ package com.richardhoppes.moviedb.service {
 		 * @return void 
 		 */
 		public function getTranslations(id:String):void {
-			loadURL(buildRequestURL(MOVIE_GET_TRANSLATIONS_METHOD, escape(id)), getTranslations_ResultHandler);
+			loadURL(buildGetURL(MOVIE_GET_TRANSLATIONS_METHOD, escape(id)), getTranslations_ResultHandler);
 		}
 		
 		/**
@@ -144,7 +150,7 @@ package com.richardhoppes.moviedb.service {
 			} else {
 				idList = ids;
 			}
-			loadURL(buildRequestURL(MOVIE_GET_VERSION_METHOD, escape(idList)), getVersion_ResultHandler);
+			loadURL(buildGetURL(MOVIE_GET_VERSION_METHOD, escape(idList)), getVersion_ResultHandler);
 		}
 		
 		/**
@@ -166,7 +172,7 @@ package com.richardhoppes.moviedb.service {
 		 * @return void 
 		 */
 		public function getLatest():void {
-			loadURL(buildRequestURL(MOVIE_GET_LATEST_METHOD), getLatest_ResultHandler);
+			loadURL(buildGetURL(MOVIE_GET_LATEST_METHOD), getLatest_ResultHandler);
 		}
 		
 		/**
@@ -189,7 +195,7 @@ package com.richardhoppes.moviedb.service {
 		 * @return void 
 		 */
 		public function getImages(id:String):void {
-			loadURL(buildRequestURL(MOVIE_GET_IMAGES_METHOD, escape(id)), getImages_ResultHandler);
+			loadURL(buildGetURL(MOVIE_GET_IMAGES_METHOD, escape(id)), getImages_ResultHandler);
 		}
 		
 		/**
@@ -279,7 +285,7 @@ package com.richardhoppes.moviedb.service {
 			if(countries != null)
 				queryString += "&countries=" + countries;
 						
-			loadURL(buildRequestURL(MOVIE_BROWSE_METHOD, queryString), browse_ResultHandler);
+			loadURL(buildGetURL(MOVIE_BROWSE_METHOD, queryString), browse_ResultHandler);
 		}
 		
 		private function browse_ResultHandler(e:Event):void {	
@@ -288,6 +294,23 @@ package com.richardhoppes.moviedb.service {
 				dispatchEvent(new BrowseMoviesEvent(BrowseMoviesEvent.RESULT, results, e.currentTarget.data as String));
 			} else {
 				dispatchEvent(new BrowseMoviesEvent(BrowseMoviesEvent.NO_RESULTS, results, e.currentTarget.data as String));
+			}
+		}
+		
+		public function addRating(sessionKey:String, tmdbId:Number, rating:Number):void {
+			var variables : URLVariables = new URLVariables();  
+			variables.rating = rating.toFixed(1);  
+			variables.id = tmdbId;  
+			variables.session_key = sessionKey;
+			loadURL(buildPostURL(MOVIE_ADD_RATING_METHOD), addRating_ResultHandler, URLRequestMethod.POST, variables);
+		}
+		
+		private function addRating_ResultHandler(e:Event):void {
+			var jsonResult:Object = ParseUtil.decodeAsObject(e.currentTarget.data as String); 
+			if(jsonResult.code == 12) {
+				dispatchEvent(new AddMovieRatingEvent(AddMovieRatingEvent.SUCCESS, e.currentTarget.data as String));
+			} else {
+				dispatchEvent(new PostErrorEvent(PostErrorEvent.MOVIE_RATING_ERROR));
 			}
 		}
 	}

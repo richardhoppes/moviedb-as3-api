@@ -14,6 +14,7 @@ package com.richardhoppes.moviedb.service {
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
 	import flash.net.URLRequestMethod;
+	import flash.net.URLVariables;
 	
 	/**
 	 * Base Service 
@@ -46,7 +47,7 @@ package com.richardhoppes.moviedb.service {
 			return _language;
 		}
 		
-		protected function loadURL(requestURL:String, resultHandler:Function, requestMethod:String = URLRequestMethod.GET):void {
+		protected function loadURL(requestURL:String, resultHandler:Function, requestMethod:String = URLRequestMethod.GET, variables:URLVariables = null):void {
 			var loader:URLLoader = new URLLoader();
 			loader.addEventListener(Event.COMPLETE, resultHandler);
 			loader.addEventListener(IOErrorEvent.IO_ERROR, ioErrorHandler);
@@ -55,6 +56,11 @@ package com.richardhoppes.moviedb.service {
 			try {
 				var request:URLRequest = new URLRequest(requestURL);
 				request.method = requestMethod;
+				if(variables != null) {
+					variables.api_key = apiKey;
+					variables.type = "json";
+					request.data = variables;
+				}
 				loader.load(request);
 			} catch (error:Error) {
 				dispatchEvent(new ServiceErrorEvent(ServiceErrorEvent.FAULT, new ServiceError(error.message, error.errorID))); 
@@ -69,18 +75,30 @@ package com.richardhoppes.moviedb.service {
 			dispatchEvent(new ServiceErrorEvent(ServiceErrorEvent.SECURITY_ERROR, new ServiceError(event.text, event.errorID))); 
 		}
 		
+		protected function buildGetURL(method:String, args:String = null, includeLanguage:Boolean = true, includeFormat:Boolean = true):String {
+			return buildRequestURL(method, args, includeLanguage, includeFormat ,true);
+		}
 		
-		protected function buildRequestURL(method:String, args:String = null, includeLanguage:Boolean = true):String {
-			var url:String = BASE_API_URL + method;
-			if(includeLanguage) {
-				url += "/" + language;
-			}
-			url += "/json/" + apiKey;
-			return buildBaseURL(url, args);
+		protected function buildPostURL(method:String):String {
+			return buildRequestURL(method, null, false, false, false);
 		}
 		
 		protected function buildAuthURL(method:String, args:String = null):String {
 			var url:String = BASE_API_URL + method + "/json/" + apiKey;
+			return buildBaseURL(url, args);
+		}
+		
+		private function buildRequestURL(method:String, args:String = null, includeLanguage:Boolean = true, includeFormat:Boolean = true, includeApiKey:Boolean = true):String {
+			var url:String = BASE_API_URL + method;
+			if(includeLanguage) {
+				url += "/" + language;
+			}
+			if(includeFormat) {
+				url += "/json";
+			}
+			if(includeApiKey) {
+				url += "/" + apiKey;
+			}
 			return buildBaseURL(url, args);
 		}
 										   

@@ -23,7 +23,7 @@ package com.richardhoppes.moviedb.service {
 		 * @return void 
 		 */
 		public function getList():void {
-			loadURL(buildRequestURL(GENRE_GET_LIST_METHOD), getList_ResultHandler);
+			loadURL(buildGetURL(GENRE_GET_LIST_METHOD), getList_ResultHandler);
 		}
 		
 		/**

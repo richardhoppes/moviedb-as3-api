@@ -40,7 +40,7 @@ package com.richardhoppes.moviedb.service {
 		}
 		
 		public function getSession(token:String):void {
-			loadURL(buildRequestURL(AUTH_GET_SESSION_METHOD, token, false), getSession_ResultHandler);
+			loadURL(buildGetURL(AUTH_GET_SESSION_METHOD, token, false), getSession_ResultHandler);
 		}
 		
 		protected function getSession_ResultHandler(e:Event):void {

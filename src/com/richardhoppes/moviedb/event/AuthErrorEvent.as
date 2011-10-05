@@ -47,6 +47,7 @@ package com.richardhoppes.moviedb.event {
 				case NO_SESSION_RECEIVED: 
 					_error = new AuthError("Error retrieving session.", token, username, session);
 					break;
+				case UNKNOWN: 
 				default: 
 					_error = new AuthError("Unknown error.", token, username, session);
 					break;

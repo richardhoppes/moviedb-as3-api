@@ -7,7 +7,7 @@ package com.richardhoppes.moviedb.util {
 	 * 
 	 */	
 	public class DataTypeUtil {
-		public static function handleBoolean(value:*):Boolean {
+		public static function toBoolean(value:*):Boolean {
 			if (value != null && value != "") {
 				if (value is Boolean)
 					return value;
@@ -19,22 +19,24 @@ package com.richardhoppes.moviedb.util {
 			return false;
 		}
 		
-		public static function handleNumber(value:*):Number {
+		public static function toNumber(value:*):Number {
 			if (value != null && value != "") 
 				return value;
 			return -1;
 		}
 		
-		public static function handleDate(value:*):Date {
+		public static function toDate(value:*):Date {
 			if(value != null && value != "") {
-				if(value is Date)
+				if(value is Date) {
 					return value;
 				// Strings returned by TMDb are formatted Y-m-d H:i:s or Y-m-d
 				// TODO: GOD, THERE MUST BE A BETTER WAY TO ACCOMPLISH THIS IN AS3...
-				else if(value is String) {
+				} else if(value is String) {
 					var timeDate:Array = value.split(" ");
 					var dateParts:Array = timeDate[0].split('-');
 					return new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
+				} else if(value is Number || value is int) {
+					return new Date(value * 1000);
 				}
 			}
 			return null;

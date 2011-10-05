@@ -14,15 +14,15 @@ package com.richardhoppes.moviedb.vo {
 		}
 		
 		public var runtime:Number;
-		public var genres:ArrayCollection;
 		public var adult:Boolean;
 		public var tagline:String;
 		public var budget:Number;
 		public var revenue:Number;
 		public var homepage:String;
-		public var trailer:String;	
-		public var studios:ArrayCollection;
-		public var countries:ArrayCollection;
-		public var people:ArrayCollection;
+		public var trailer:String;
+		public var genres:ArrayCollection;		// Collection of genre objects
+		public var studios:ArrayCollection;		// Collection of studio objects
+		public var countries:ArrayCollection;	// Collection of country objects
+		public var people:ArrayCollection;		// Collection of person objects
 	}
 }

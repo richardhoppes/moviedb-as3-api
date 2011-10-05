@@ -1,17 +1,22 @@
 package com.richardhoppes.moviedb.json {
+	import com.richardhoppes.moviedb.vo.CastVO;
 	import com.richardhoppes.moviedb.vo.CountryVO;
 	import com.richardhoppes.moviedb.vo.GenreVO;
 	import com.richardhoppes.moviedb.vo.ImageVO;
-	import com.richardhoppes.moviedb.vo.LatestMovieVO;
-	import com.richardhoppes.moviedb.vo.BrowseMovieVO;
-	import com.richardhoppes.moviedb.vo.ImdbMovieLookupVO;
+	import com.richardhoppes.moviedb.vo.MovieBrowseVO;
+	import com.richardhoppes.moviedb.vo.MovieImdbLookupVO;
 	import com.richardhoppes.moviedb.vo.MovieInfoVO;
+	import com.richardhoppes.moviedb.vo.MovieLatestVO;
 	import com.richardhoppes.moviedb.vo.MovieSearchVO;
 	import com.richardhoppes.moviedb.vo.MovieVO;
-	import com.richardhoppes.moviedb.vo.PersonVO;
-	import com.richardhoppes.moviedb.vo.MovieStudioVO;
-	import com.richardhoppes.moviedb.vo.MovieTranslationVO;
 	import com.richardhoppes.moviedb.vo.MovieVersionVO;
+	import com.richardhoppes.moviedb.vo.PersonInfoVO;
+	import com.richardhoppes.moviedb.vo.PersonLatestVO;
+	import com.richardhoppes.moviedb.vo.PersonSearchVO;
+	import com.richardhoppes.moviedb.vo.PersonVO;
+	import com.richardhoppes.moviedb.vo.PersonVersionVO;
+	import com.richardhoppes.moviedb.vo.StudioVO;
+	import com.richardhoppes.moviedb.vo.TranslationVO;
 	
 	import mx.collections.ArrayCollection;
 	
@@ -22,8 +27,8 @@ package com.richardhoppes.moviedb.json {
 	 */	
 	public class VOUtil {
 		
-		public static function createImdbMovieLookupVO(object:Object):ImdbMovieLookupVO {
-			var movieImdbLookupVO:ImdbMovieLookupVO = ImdbMovieLookupVO(VOUtil.createMovieVO(object, new ImdbMovieLookupVO()));
+		public static function createMovieImdbLookupVO(object:Object):MovieImdbLookupVO {
+			var movieImdbLookupVO:MovieImdbLookupVO = MovieImdbLookupVO(VOUtil.createMovieVO(object, new MovieImdbLookupVO()));
 			movieImdbLookupVO.runtime = DataTypeUtil.handleNumber(object.runtime);
 			
 			movieImdbLookupVO.genres = new ArrayCollection();
@@ -65,19 +70,19 @@ package com.richardhoppes.moviedb.json {
 			
 			movieInfoVO.studios = new ArrayCollection();
 			for each (var studio:Object in object.studios) {
-				movieInfoVO.studios.addItem(createMovieStudioVO(studio));
+				movieInfoVO.studios.addItem(createStudioVO(studio));
 			}
 			
 			movieInfoVO.people = new ArrayCollection();
 			for each (var person:Object in object.cast) {
-				movieInfoVO.people.addItem(createPersonVO(person));
+				movieInfoVO.people.addItem(createCastVO(person));
 			}
 			
 			return movieInfoVO;
 		}
 		
-		public static function createBrowseMovieVO(object:Object):BrowseMovieVO {
-			var movieBrowseVO:BrowseMovieVO = BrowseMovieVO(VOUtil.createMovieVO(object, new BrowseMovieVO()));
+		public static function createMovieBrowseVO(object:Object):MovieBrowseVO {
+			var movieBrowseVO:MovieBrowseVO = MovieBrowseVO(VOUtil.createMovieVO(object, new MovieBrowseVO()));
 			movieBrowseVO.runtime = DataTypeUtil.handleNumber(object.runtime);
 			movieBrowseVO.adult = DataTypeUtil.handleBoolean(object.adult); 
 			movieBrowseVO.score = DataTypeUtil.handleNumber(object.score);
@@ -127,8 +132,8 @@ package com.richardhoppes.moviedb.json {
 			return genreVO;
 		}
 		
-		public static function createPersonVO(object:Object):PersonVO {
-			var personVO:PersonVO = new PersonVO;
+		public static function createCastVO(object:Object):CastVO {
+			var personVO:CastVO = new CastVO;
 			personVO.castId = object.castId;
 			personVO.url = object.url;
 			personVO.order = DataTypeUtil.handleNumber(object.order);
@@ -141,8 +146,8 @@ package com.richardhoppes.moviedb.json {
 			return personVO;
 		}
 		
-		public static function createMovieStudioVO(object:Object):MovieStudioVO {
-			var studioVO:MovieStudioVO = new MovieStudioVO;
+		public static function createStudioVO(object:Object):StudioVO {
+			var studioVO:StudioVO = new StudioVO;
 			studioVO.url = object.url;
 			studioVO.name = object.name;
 			studioVO.id = object.id;
@@ -157,8 +162,8 @@ package com.richardhoppes.moviedb.json {
 			return countryVO;
 		}
 		
-		public static function createMovieTranslationVO(object:Object):MovieTranslationVO {
-			var translationVO:MovieTranslationVO = new MovieTranslationVO;
+		public static function createTranslationVO(object:Object):TranslationVO {
+			var translationVO:TranslationVO = new TranslationVO;
 			translationVO.englishName = object.english_name;
 			translationVO.nativeName = object.native_name;
 			translationVO.iso639_1 = object.iso_639_1;
@@ -186,8 +191,8 @@ package com.richardhoppes.moviedb.json {
 			return versionVO;
 		}
 		
-		public static function createLatestMovieVO(object:Object):LatestMovieVO {
-			var latestVO:LatestMovieVO = new LatestMovieVO();
+		public static function createMovieLatestVO(object:Object):MovieLatestVO {
+			var latestVO:MovieLatestVO = new MovieLatestVO();
 			latestVO.name = object.name;
 			latestVO.id = object.id;
 			latestVO.imdbId = object.imdb_id;
@@ -196,5 +201,59 @@ package com.richardhoppes.moviedb.json {
 			return latestVO;
 		}
 		
+		public static function createPersonInfoVO(object:Object):PersonInfoVO {
+			var personInfoVO:PersonInfoVO = PersonInfoVO(VOUtil.createPersonVO(object, new PersonInfoVO()));
+			personInfoVO.knownMovies = object.known_movies;
+			personInfoVO.birthday = object.birthday;
+			
+			personInfoVO.filmography = new ArrayCollection();
+			for each (var cast:Object in object.filmography) {
+				personInfoVO.filmography.addItem(createCastVO(cast));
+			}
+			
+			return personInfoVO;
+		}
+
+		public static function createPersonSearchVO(object:Object):PersonSearchVO {
+			var personSearchVO:PersonSearchVO = PersonSearchVO(VOUtil.createPersonVO(object, new PersonSearchVO()));
+			personSearchVO.score = object.score;
+			return personSearchVO;
+		}
+		
+		public static function createPersonVO(object:Object, personVO:PersonVO):PersonVO {
+			personVO.id = object.id;
+			personVO.name = object.name;
+			personVO.version = object.version;
+			personVO.lastModifiedAt = object.last_modified;
+			personVO.url = object.url;
+			personVO.popularity = object.popularity;
+			personVO.biography = object.biography;
+			personVO.images = object.images;
+			
+			personVO.images = new ArrayCollection();
+			for each (var profileImage:Object in object.profile) {
+				personVO.images.addItem(createImageVO(profileImage));
+			}
+			
+			return personVO;
+		}
+		
+		public static function createPersonVersionVO(object:Object):PersonVersionVO {
+			var versionVO:PersonVersionVO = new PersonVersionVO();
+			versionVO.name = object.name;
+			versionVO.id = object.id;
+			versionVO.lastModifiedAt = object.last_modified_at;
+			versionVO.version = object.version;
+			return versionVO;
+		}
+		
+		public static function createPersonLatestVO(object:Object):PersonLatestVO {
+			var latestVO:PersonLatestVO = new PersonLatestVO();
+			latestVO.name = object.name;
+			latestVO.id = object.id;
+			latestVO.lastModifiedAt = object.last_modified_at;
+			latestVO.version = object.version;
+			return latestVO;
+		}
 	}
 }

@@ -1,4 +1,6 @@
 package com.richardhoppes.moviedb.vo {
+	import mx.collections.ArrayCollection;
+
 	[RemoteClass(alias="com.richardhoppes.moviedb.vo.PersonVO")]
 	
 	/**
@@ -10,15 +12,15 @@ package com.richardhoppes.moviedb.vo {
 		public function PersonVO() {
 			super();
 		}
-
-		public var castId:String;
-		public var url:String;
-		public var order:Number;
-		public var character:String;
-		public var name:String;
-		public var profile:String;
-		public var job:String;
+		
 		public var id:String;
-		public var department:String;
+		public var name:String;
+		public var version:String;
+		public var lastModifiedAt:String;
+		public var url:String;
+		public var popularity:Number;
+		public var biography:String;
+		public var images:ArrayCollection;		// Collection of image objects
 	}
+	
 }

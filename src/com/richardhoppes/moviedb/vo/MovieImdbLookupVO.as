@@ -1,15 +1,15 @@
 package com.richardhoppes.moviedb.vo {
 	import mx.collections.ArrayCollection;
 
-	[RemoteClass(alias="com.richardhoppes.moviedb.vo.ImdbMovieLookupVO")]
+	[RemoteClass(alias="com.richardhoppes.moviedb.vo.MovieImdbLookupVO")]
 	
 	/**
 	 * Imdb Movie Lookup VO 
 	 * @author richard hoppes
 	 * 
 	 */	
-	public class ImdbMovieLookupVO extends MovieVO {
-		public function ImdbMovieLookupVO() {
+	public class MovieImdbLookupVO extends MovieVO {
+		public function MovieImdbLookupVO() {
 			super();
 		}
 		

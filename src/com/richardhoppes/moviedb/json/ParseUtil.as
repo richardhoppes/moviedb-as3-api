@@ -15,8 +15,10 @@ package com.richardhoppes.moviedb.json {
 			try {
 				results = JSON.decode(response, true);
 			} catch (error:JSONParseError) {
+				//TODO: Throw error
 				trace("decodeAsObject: JSON Parse Error");
 			} catch (error:Error) {
+				//TODO: Throw error
 				trace("decodeAsObject: Error");
 			}
 			

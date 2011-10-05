@@ -1,5 +1,5 @@
 package com.richardhoppes.moviedb.event.movie {
-	import com.richardhoppes.moviedb.vo.LatestMovieVO;
+	import com.richardhoppes.moviedb.vo.MovieLatestVO;
 	
 	import flash.events.Event;
 	
@@ -13,9 +13,9 @@ package com.richardhoppes.moviedb.event.movie {
 		public static const RESULT:String = "GetLatestMovieEvent.RESULT";
 		public static const NO_RESULTS:String = "GetLatestMovieEvent.NO_RESULT";
 		
-		private var _result:LatestMovieVO;
+		private var _result:MovieLatestVO;
 		
-		public function get result():LatestMovieVO {
+		public function get result():MovieLatestVO {
 			return _result;
 		}
 		
@@ -25,7 +25,7 @@ package com.richardhoppes.moviedb.event.movie {
 			return _rawResult;
 		}
 		
-		public function GetLatestMovieEvent(type:String, result:LatestMovieVO, rawResult:String, bubbles:Boolean = false) {
+		public function GetLatestMovieEvent(type:String, result:MovieLatestVO, rawResult:String, bubbles:Boolean = false) {
 			super(type, bubbles);
 			_result = result;
 			_rawResult = rawResult;

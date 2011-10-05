@@ -8,8 +8,8 @@ package com.richardhoppes.moviedb.service {
 	import com.richardhoppes.moviedb.event.movie.IMDBMovieLookupEvent;
 	import com.richardhoppes.moviedb.event.movie.MovieSearchEvent;
 	import com.richardhoppes.moviedb.json.MovieResponseUtil;
-	import com.richardhoppes.moviedb.vo.LatestMovieVO;
-	import com.richardhoppes.moviedb.vo.ImdbMovieLookupVO;
+	import com.richardhoppes.moviedb.vo.MovieLatestVO;
+	import com.richardhoppes.moviedb.vo.MovieImdbLookupVO;
 	import com.richardhoppes.moviedb.vo.MovieInfoVO;
 	
 	import flash.events.Event;
@@ -74,7 +74,7 @@ package com.richardhoppes.moviedb.service {
 		 * @return void
 		 */
 		private function imdbLookup_ResultHandler(e:Event):void {	
-			var result:ImdbMovieLookupVO = MovieResponseUtil.imdbLookup(e.currentTarget.data as String);
+			var result:MovieImdbLookupVO = MovieResponseUtil.imdbLookup(e.currentTarget.data as String);
 			if(result.id != null && result.id != "") {
 				dispatchEvent(new IMDBMovieLookupEvent(IMDBMovieLookupEvent.RESULT, result, e.currentTarget.data as String));
 			} else {
@@ -175,7 +175,7 @@ package com.richardhoppes.moviedb.service {
 		 * @return void
 		 */
 		private function getLatest_ResultHandler(e:Event):void {	
-			var result:LatestMovieVO = MovieResponseUtil.getLatest(e.currentTarget.data as String);
+			var result:MovieLatestVO = MovieResponseUtil.getLatest(e.currentTarget.data as String);
 			if(result.id != null && result.id != "") {
 				dispatchEvent(new GetLatestMovieEvent(GetLatestMovieEvent.RESULT, result, e.currentTarget.data as String));
 			} else {

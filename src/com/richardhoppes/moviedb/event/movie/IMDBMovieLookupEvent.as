@@ -1,5 +1,5 @@
 package com.richardhoppes.moviedb.event.movie {
-	import com.richardhoppes.moviedb.vo.ImdbMovieLookupVO;
+	import com.richardhoppes.moviedb.vo.MovieImdbLookupVO;
 	
 	import flash.events.Event;
 	
@@ -13,9 +13,9 @@ package com.richardhoppes.moviedb.event.movie {
 		public static const RESULT:String = "IMDBMovieLookupEvent.RESULT";
 		public static const NO_RESULTS:String = "IMDBMovieLookupEvent.NO_RESULT";
 		
-		private var _result:ImdbMovieLookupVO;
+		private var _result:MovieImdbLookupVO;
 		
-		public function get result():ImdbMovieLookupVO {
+		public function get result():MovieImdbLookupVO {
 			return _result;
 		}
 		
@@ -25,7 +25,7 @@ package com.richardhoppes.moviedb.event.movie {
 			return _rawResult;
 		}
 		
-		public function IMDBMovieLookupEvent(type:String, result:ImdbMovieLookupVO, rawResult:String, bubbles:Boolean = false) {
+		public function IMDBMovieLookupEvent(type:String, result:MovieImdbLookupVO, rawResult:String, bubbles:Boolean = false) {
 			super(type, bubbles);
 			_result = result;
 			_rawResult = rawResult;

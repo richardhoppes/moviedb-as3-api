@@ -1,4 +1,5 @@
 package com.richardhoppes.moviedb.vo {
+
 	[RemoteClass(alias="com.richardhoppes.moviedb.vo.MovieSearchVO")]
 	
 	/**

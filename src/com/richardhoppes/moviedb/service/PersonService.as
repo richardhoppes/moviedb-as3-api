@@ -12,8 +12,6 @@ package com.richardhoppes.moviedb.service {
 	
 	import flash.events.Event;
 	
-	import mx.collections.ArrayCollection;
-	
 	/**
 	 * Person Service
 	 * @author richard hoppes

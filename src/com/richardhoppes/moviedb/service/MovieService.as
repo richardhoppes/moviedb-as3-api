@@ -291,6 +291,11 @@ package com.richardhoppes.moviedb.service {
 			loadURL(buildGetURL(MOVIE_BROWSE_METHOD, queryString), browse_ResultHandler);
 		}
 		
+		/**
+		 * Handles browse result
+		 * @param e Event  
+		 * @return void
+		 */
 		private function browse_ResultHandler(e:Event):void {	
 			var results:Vector.<MovieBrowseVO> = MovieResponseUtil.browse(e.currentTarget.data as String);
 			if(results.length > 0) {
@@ -300,6 +305,13 @@ package com.richardhoppes.moviedb.service {
 			}
 		}
 		
+		/**
+		 * Add movie rating.  Requires that user has been authenticated.
+		 * @param sessionId String session id for authenticated user
+		 * @param tmdbId Number tmdb id for movie 
+		 * @param rating Number should be a float value between 0.0 and 10.0
+		 * @return void 
+		 */
 		public function addRating(sessionKey:String, tmdbId:Number, rating:Number):void {
 			var variables : URLVariables = new URLVariables();  
 			variables.rating = rating.toFixed(1);  
@@ -308,6 +320,11 @@ package com.richardhoppes.moviedb.service {
 			loadURL(buildPostURL(MOVIE_ADD_RATING_METHOD), addRating_ResultHandler, URLRequestMethod.POST, variables);
 		}
 		
+		/**
+		 * Handles addRating result
+		 * @param e Event  
+		 * @return void
+		 */
 		private function addRating_ResultHandler(e:Event):void {
 			var jsonResult:Object = ParseUtil.decodeAsObject(e.currentTarget.data as String); 
 			if(jsonResult.code == 12) {

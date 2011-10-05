@@ -47,6 +47,11 @@ package com.richardhoppes.moviedb.service {
 			return _language;
 		}
 		
+		/**
+		 * Load URL
+		 * @param e Event  
+		 * @return void
+		 */
 		protected function loadURL(requestURL:String, resultHandler:Function, requestMethod:String = URLRequestMethod.GET, variables:URLVariables = null):void {
 			var loader:URLLoader = new URLLoader();
 			loader.addEventListener(Event.COMPLETE, resultHandler);
@@ -67,27 +72,65 @@ package com.richardhoppes.moviedb.service {
 			}
 		}
 		
+		/**
+		 * Handle IO error event 
+		 * @param event IOErrorEvent
+		 * @return void
+		 */
 		protected function ioErrorHandler(event:IOErrorEvent):void {
 			dispatchEvent(new ServiceErrorEvent(ServiceErrorEvent.IO_ERROR, new ServiceError(event.text, event.errorID))); 
 		}
 		
+		/**
+		 * Handle security error event 
+		 * @param event SecurityErrorEvent
+		 * @return void
+		 */
 		protected function securityErrorHandler(event:SecurityErrorEvent):void {
 			dispatchEvent(new ServiceErrorEvent(ServiceErrorEvent.SECURITY_ERROR, new ServiceError(event.text, event.errorID))); 
 		}
 		
+		/**
+		 * Build url for get requests  
+		 * @param method String TMDb method that will be called
+		 * @param args String query string that will be appended to the URL
+		 * @param includeLanguage Boolean determines whether to specify language in the URL 
+		 * @param includeFormat Boolean determines whether to specify return format in the URL 
+		 * @return void
+		 */
 		protected function buildGetURL(method:String, args:String = null, includeLanguage:Boolean = true, includeFormat:Boolean = true):String {
 			return buildRequestURL(method, args, includeLanguage, includeFormat ,true);
 		}
 		
+		/**
+		 * Build url for post requests  
+		 * @param method String 
+		 * @return void
+		 */
 		protected function buildPostURL(method:String):String {
 			return buildRequestURL(method, null, false, false, false);
 		}
 		
+		/**
+		 * Build url user must follow to authenticate with their themoviedb.org username/password  
+		 * @param method String 
+		 * @param args String query string that will be appended to the URL
+		 * @return void
+		 */
 		protected function buildAuthURL(method:String, args:String = null):String {
 			var url:String = BASE_API_URL + method + "/json/" + apiKey;
-			return buildBaseURL(url, args);
+			return appendArgs(url, args);
 		}
 		
+		/**
+		 * Build URL for all requests  
+		 * @param method String TMDb method that will be called
+		 * @param args String query string that will be appended to the URL
+		 * @param includeLanguage Boolean determines whether to specify language in the URL 
+		 * @param includeFormat Boolean determines whether to specify return format in the URL 
+		 * @param includeApiKey Boolean determines whether to include the api key in the URL
+		 * @return void
+		 */
 		private function buildRequestURL(method:String, args:String = null, includeLanguage:Boolean = true, includeFormat:Boolean = true, includeApiKey:Boolean = true):String {
 			var url:String = BASE_API_URL + method;
 			if(includeLanguage) {
@@ -99,10 +142,16 @@ package com.richardhoppes.moviedb.service {
 			if(includeApiKey) {
 				url += "/" + apiKey;
 			}
-			return buildBaseURL(url, args);
+			return appendArgs(url, args);
 		}
-										   
-		private function buildBaseURL(url:String, args:String):String {
+				
+		/**
+		 * Appends arguments to request url  
+		 * @param method String TMDb method that will be called
+		 * @param args String query string that will be appended to the URL
+		 * @return void
+		 */
+		private function appendArgs(url:String, args:String):String {
 			if(args != null) {
 				if(args.charAt(0) == '?') 
 					url += args;

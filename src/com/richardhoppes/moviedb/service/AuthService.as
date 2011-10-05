@@ -7,8 +7,6 @@ package com.richardhoppes.moviedb.service {
 	
 	import flash.events.Event;
 	
-	import mx.collections.ArrayCollection;
-	
 	/**
 	 * Auth Service
 	 * @author richard hoppes
@@ -22,10 +20,19 @@ package com.richardhoppes.moviedb.service {
 			super();
 		}
 		
+		/**
+		 * Retrieves authentication token 
+		 * @return void 
+		 */
 		public function getToken():void {
 			loadURL(buildAuthURL(AUTH_GET_TOKEN_METHOD), getToken_ResultHandler);
 		}
 
+		/**
+		 * Handles getToken result
+		 * @param e Event  
+		 * @return void
+		 */
 		private function getToken_ResultHandler(e:Event):void {
 			var jsonResult:Object = ParseUtil.decodeAsObject(e.currentTarget.data as String); 
 			if(jsonResult.token != null) {
@@ -35,14 +42,29 @@ package com.richardhoppes.moviedb.service {
 			}
 		}
 		
+		/**
+		 * Gets authentication url the user must visit to enter his/her username/password
+		 * @param token String authentication token 
+		 * @return void 
+		 */
 		public function getAuthURL(token:String):String {
 			return BASE_AUTH_URL + token;
 		}
 		
+		/**
+		 * Retrieves session required for user to use write commands
+		 * @param token String authentication token 
+		 * @return void 
+		 */
 		public function getSession(token:String):void {
 			loadURL(buildGetURL(AUTH_GET_SESSION_METHOD, token, false), getSession_ResultHandler);
 		}
 		
+		/**
+		 * Handles get session event
+		 * @param e Event  
+		 * @return void
+		 */
 		protected function getSession_ResultHandler(e:Event):void {
 			var jsonResult:Object = ParseUtil.decodeAsObject(e.currentTarget.data as String);
 			if(jsonResult.username != null && jsonResult.session != null) {

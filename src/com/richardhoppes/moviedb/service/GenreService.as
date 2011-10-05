@@ -5,8 +5,6 @@ package com.richardhoppes.moviedb.service {
 	
 	import flash.events.Event;
 	
-	import mx.collections.ArrayCollection;
-	
 	/**
 	 * Genre Service
 	 * @author richard hoppes

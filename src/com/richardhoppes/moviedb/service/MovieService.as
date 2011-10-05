@@ -12,15 +12,18 @@ package com.richardhoppes.moviedb.service {
 	import com.richardhoppes.moviedb.event.movie.MovieSearchEvent;
 	import com.richardhoppes.moviedb.util.json.MovieResponseUtil;
 	import com.richardhoppes.moviedb.util.json.ParseUtil;
+	import com.richardhoppes.moviedb.vo.ImageVO;
+	import com.richardhoppes.moviedb.vo.MovieBrowseVO;
 	import com.richardhoppes.moviedb.vo.MovieImdbLookupVO;
 	import com.richardhoppes.moviedb.vo.MovieInfoVO;
 	import com.richardhoppes.moviedb.vo.MovieLatestVO;
+	import com.richardhoppes.moviedb.vo.MovieSearchVO;
+	import com.richardhoppes.moviedb.vo.MovieVersionVO;
+	import com.richardhoppes.moviedb.vo.TranslationVO;
 	
 	import flash.events.Event;
 	import flash.net.URLRequestMethod;
 	import flash.net.URLVariables;
-	
-	import mx.collections.ArrayCollection;
 	
 	/**
 	 * Movie Service
@@ -57,7 +60,7 @@ package com.richardhoppes.moviedb.service {
 		 * @return void
 		 */
 		private function movieSearch_ResultHandler(e:Event):void {
-			var results:ArrayCollection = MovieResponseUtil.movieSearch(e.currentTarget.data as String);
+			var results:Vector.<MovieSearchVO> = MovieResponseUtil.movieSearch(e.currentTarget.data as String);
 			if(results.length > 0) {
 				dispatchEvent(new MovieSearchEvent(MovieSearchEvent.RESULT, results, e.currentTarget.data as String));
 			} else {
@@ -126,7 +129,7 @@ package com.richardhoppes.moviedb.service {
 		 * @return void
 		 */
 		private function getTranslations_ResultHandler(e:Event):void {	
-			var results:ArrayCollection = MovieResponseUtil.getTranslations(e.currentTarget.data as String);
+			var results:Vector.<TranslationVO> = MovieResponseUtil.getTranslations(e.currentTarget.data as String);
 			if(results.length > 0) {
 				dispatchEvent(new GetMovieTranslationsEvent(GetMovieTranslationsEvent.RESULT, results, e.currentTarget.data as String));
 			} else {
@@ -159,7 +162,7 @@ package com.richardhoppes.moviedb.service {
 		 * @return void
 		 */
 		private function getVersion_ResultHandler(e:Event):void {	
-			var results:ArrayCollection = MovieResponseUtil.getVersion(e.currentTarget.data as String);
+			var results:Vector.<MovieVersionVO> = MovieResponseUtil.getVersion(e.currentTarget.data as String);
 			if(results.length > 0) {
 				dispatchEvent(new GetMovieVersionEvent(GetMovieVersionEvent.RESULT, results, e.currentTarget.data as String));
 			} else {
@@ -204,7 +207,7 @@ package com.richardhoppes.moviedb.service {
 		 * @return void
 		 */
 		private function getImages_ResultHandler(e:Event):void {	
-			var results:ArrayCollection = MovieResponseUtil.getImages(e.currentTarget.data as String);
+			var results:Vector.<ImageVO> = MovieResponseUtil.getImages(e.currentTarget.data as String);
 			if(results.length > 0) {
 				dispatchEvent(new GetMovieImagesEvent(GetMovieImagesEvent.RESULT, results, e.currentTarget.data as String));
 			} else {
@@ -289,7 +292,7 @@ package com.richardhoppes.moviedb.service {
 		}
 		
 		private function browse_ResultHandler(e:Event):void {	
-			var results:ArrayCollection = MovieResponseUtil.browse(e.currentTarget.data as String);
+			var results:Vector.<MovieBrowseVO> = MovieResponseUtil.browse(e.currentTarget.data as String);
 			if(results.length > 0) {
 				dispatchEvent(new BrowseMoviesEvent(BrowseMoviesEvent.RESULT, results, e.currentTarget.data as String));
 			} else {

@@ -1,6 +1,4 @@
 package com.richardhoppes.moviedb.vo {
-	import mx.collections.ArrayCollection;
-
 	[RemoteClass(alias="com.richardhoppes.moviedb.vo.PersonInfoVO")]
 	
 	/**
@@ -16,7 +14,7 @@ package com.richardhoppes.moviedb.vo {
 		public var knownMovies:Number;
 		public var birthday:Date;	
 		public var birthplace:String;
-		public var filmography:ArrayCollection;	// Collection of cast objects
+		public var filmography:Vector.<CastVO>;	// Collection of cast objects
 		
 		//TODO: known_as (collection) (?)
 	}

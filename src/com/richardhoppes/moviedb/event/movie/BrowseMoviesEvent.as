@@ -1,7 +1,7 @@
 package com.richardhoppes.moviedb.event.movie {
-	import flash.events.Event;
+	import com.richardhoppes.moviedb.vo.MovieBrowseVO;
 	
-	import mx.collections.ArrayCollection;
+	import flash.events.Event;
 	
 	/**
 	 * Browse Movies Event 
@@ -13,9 +13,9 @@ package com.richardhoppes.moviedb.event.movie {
 		public static const RESULT:String = "BrowseMoviesEvent.RESULT";
 		public static const NO_RESULTS:String = "BrowseMoviesEvent.NO_RESULT";
 		
-		private var _results:ArrayCollection;
+		private var _results:Vector.<MovieBrowseVO> = new Vector.<MovieBrowseVO>();
 		
-		public function get results():ArrayCollection {
+		public function get results():Vector.<MovieBrowseVO> {
 			return _results;
 		}
 		
@@ -25,7 +25,7 @@ package com.richardhoppes.moviedb.event.movie {
 			return _rawResult;
 		}
 		
-		public function BrowseMoviesEvent(type:String, results:ArrayCollection, rawResult:String, bubbles:Boolean = false) {
+		public function BrowseMoviesEvent(type:String, results:Vector.<MovieBrowseVO>, rawResult:String, bubbles:Boolean = false) {
 			super(type, bubbles);
 			_results = results;
 			_rawResult = rawResult;

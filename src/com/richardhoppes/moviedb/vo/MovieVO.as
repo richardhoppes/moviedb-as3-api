@@ -1,6 +1,4 @@
 package com.richardhoppes.moviedb.vo {
-	import mx.collections.ArrayCollection;
-
 	[RemoteClass(alias="com.richardhoppes.moviedb.vo.MovieVO")]
 	
 	/**
@@ -28,7 +26,7 @@ package com.richardhoppes.moviedb.vo {
 		public var rating:Number;
 		public var certification:String;
 		public var releaseDate:String;
-		public var images:ArrayCollection;		// Collection of image objects
+		public var images:Vector.<ImageVO>;		
 		public var version:String;		
 		public var lastModifiedAt:Date;
 	}

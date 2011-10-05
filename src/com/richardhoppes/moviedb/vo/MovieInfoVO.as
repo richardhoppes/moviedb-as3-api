@@ -1,6 +1,4 @@
 package com.richardhoppes.moviedb.vo {
-	import mx.collections.ArrayCollection;
-
 	[RemoteClass(alias="com.richardhoppes.moviedb.vo.MovieInfoVO")]
 	
 	/**
@@ -20,9 +18,9 @@ package com.richardhoppes.moviedb.vo {
 		public var revenue:Number;
 		public var homepage:String;
 		public var trailer:String;
-		public var genres:ArrayCollection;		// Collection of genre objects
-		public var studios:ArrayCollection;		// Collection of studio objects
-		public var countries:ArrayCollection;	// Collection of country objects
-		public var people:ArrayCollection;		// Collection of person objects
+		public var genres:Vector.<GenreVO>;		
+		public var studios:Vector.<StudioVO>;		
+		public var countries:Vector.<CountryVO>;	
+		public var people:Vector.<CastVO>;		
 	}
 }

@@ -1,7 +1,7 @@
 package com.richardhoppes.moviedb.event.movie {
-	import flash.events.Event;
+	import com.richardhoppes.moviedb.vo.TranslationVO;
 	
-	import mx.collections.ArrayCollection;
+	import flash.events.Event;
 	
 	/**
 	 * Get Movie Translations Event 
@@ -13,9 +13,9 @@ package com.richardhoppes.moviedb.event.movie {
 		public static const RESULT:String = "GetMovieTranslationsEvent.RESULT";
 		public static const NO_RESULTS:String = "GetMovieTranslationsEvent.NO_RESULT";
 		
-		private var _results:ArrayCollection;
+		private var _results:Vector.<TranslationVO>;
 		
-		public function get results():ArrayCollection {
+		public function get results():Vector.<TranslationVO> {
 			return _results;
 		}
 		
@@ -25,7 +25,7 @@ package com.richardhoppes.moviedb.event.movie {
 			return _rawResult;
 		}
 		
-		public function GetMovieTranslationsEvent(type:String, results:ArrayCollection, rawResult:String, bubbles:Boolean = false) {
+		public function GetMovieTranslationsEvent(type:String, results:Vector.<TranslationVO>, rawResult:String, bubbles:Boolean = false) {
 			super(type, bubbles);
 			_results = results;
 			_rawResult = rawResult;

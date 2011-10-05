@@ -1,8 +1,8 @@
 package com.richardhoppes.moviedb.event.genre {
+	import com.richardhoppes.moviedb.vo.GenreVO;
+	
 	import flash.events.Event;
 	
-	import mx.collections.ArrayCollection;
-
 	/**
 	 * Get Genre List Event 
 	 * @author richard hoppes
@@ -13,9 +13,9 @@ package com.richardhoppes.moviedb.event.genre {
 		public static const RESULT:String = "GetGenreListEvent.RESULT";
 		public static const NO_RESULTS:String = "GetGenreListEvent.NO_RESULTS";
 		
-		private var _results:ArrayCollection;
+		private var _results:Vector.<GenreVO>;
 		
-		public function get results():ArrayCollection {
+		public function get results():Vector.<GenreVO> {
 			return _results;
 		}
 		
@@ -25,7 +25,7 @@ package com.richardhoppes.moviedb.event.genre {
 			return _rawResult;
 		}
 		
-		public function GetGenreListEvent(type:String, results:ArrayCollection, rawResult:String, bubbles:Boolean = false) {
+		public function GetGenreListEvent(type:String, results:Vector.<GenreVO>, rawResult:String, bubbles:Boolean = false) {
 			super(type, bubbles);
 			_results = results;
 			_rawResult = rawResult;

@@ -1,6 +1,7 @@
 package com.richardhoppes.moviedb.service {
 	import com.richardhoppes.moviedb.event.genre.GetGenreListEvent;
 	import com.richardhoppes.moviedb.util.json.GenreResponseUtil;
+	import com.richardhoppes.moviedb.vo.GenreVO;
 	
 	import flash.events.Event;
 	
@@ -32,7 +33,7 @@ package com.richardhoppes.moviedb.service {
 		 * @return void
 		 */
 		private function getList_ResultHandler(e:Event):void {
-			var results:ArrayCollection = GenreResponseUtil.getList(e.currentTarget.data as String);
+			var results:Vector.<GenreVO> = GenreResponseUtil.getList(e.currentTarget.data as String);
 			if(results.length > 0) {
 				dispatchEvent(new GetGenreListEvent(GetGenreListEvent.RESULT, results, e.currentTarget.data as String));
 			} else {

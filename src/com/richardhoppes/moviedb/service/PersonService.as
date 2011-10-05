@@ -7,6 +7,8 @@ package com.richardhoppes.moviedb.service {
 	import com.richardhoppes.moviedb.util.json.PersonResponseUtil;
 	import com.richardhoppes.moviedb.vo.PersonInfoVO;
 	import com.richardhoppes.moviedb.vo.PersonLatestVO;
+	import com.richardhoppes.moviedb.vo.PersonSearchVO;
+	import com.richardhoppes.moviedb.vo.PersonVersionVO;
 	
 	import flash.events.Event;
 	
@@ -42,7 +44,7 @@ package com.richardhoppes.moviedb.service {
 		 * @return void
 		 */
 		private function personSearch_ResultHandler(e:Event):void {
-			var results:ArrayCollection = PersonResponseUtil.personSearch(e.currentTarget.data as String);
+			var results:Vector.<PersonSearchVO> = PersonResponseUtil.personSearch(e.currentTarget.data as String);
 			if(results.length > 0) {
 				dispatchEvent(new PersonSearchEvent(PersonSearchEvent.RESULT, results, e.currentTarget.data as String));
 			} else {
@@ -120,7 +122,7 @@ package com.richardhoppes.moviedb.service {
 		 * @return void
 		 */
 		private function getVersion_ResultHandler(e:Event):void {	
-			var results:ArrayCollection = PersonResponseUtil.getVersion(e.currentTarget.data as String);
+			var results:Vector.<PersonVersionVO> = PersonResponseUtil.getVersion(e.currentTarget.data as String);
 			if(results.length > 0) {
 				dispatchEvent(new GetPersonVersionEvent(GetPersonVersionEvent.RESULT, results, e.currentTarget.data as String));
 			} else {

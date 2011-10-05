@@ -12,14 +12,14 @@ package com.richardhoppes.moviedb.util.json {
 		public function GenreResponseUtil() {
 		}
 		
-		public static function getList(response:String):ArrayCollection {
-			var result:ArrayCollection = new ArrayCollection();
+		public static function getList(response:String):Vector.<GenreVO> {
+			var result:Vector.<GenreVO> = new Vector.<GenreVO>();
 			var jsonResult:Object = ParseUtil.decodeAsObject(response);
 			if(jsonResult.length > 0) {
 				for each (var genre:Object in jsonResult) {
 					if(genre.name != null) {
 						var genreVO:GenreVO = VOUtil.createGenreVO(genre);
-						result.addItem(genreVO);
+						result.push(genreVO);
 					}
 				} 
 			}

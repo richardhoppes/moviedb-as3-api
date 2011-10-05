@@ -1,5 +1,6 @@
 package com.richardhoppes.moviedb.util.json {
 	import com.adobe.utils.DateUtil;
+	import com.richardhoppes.moviedb.util.DataTypeUtil;
 	import com.richardhoppes.moviedb.vo.CastVO;
 	import com.richardhoppes.moviedb.vo.CountryVO;
 	import com.richardhoppes.moviedb.vo.GenreVO;
@@ -19,9 +20,6 @@ package com.richardhoppes.moviedb.util.json {
 	import com.richardhoppes.moviedb.vo.StudioVO;
 	import com.richardhoppes.moviedb.vo.TranslationVO;
 	
-	import mx.collections.ArrayCollection;
-	import com.richardhoppes.moviedb.util.DataTypeUtil;
-	
 	/**
 	 * VO Utility  
 	 * @author richard hoppes
@@ -33,9 +31,9 @@ package com.richardhoppes.moviedb.util.json {
 			var movieImdbLookupVO:MovieImdbLookupVO = MovieImdbLookupVO(VOUtil.createMovieVO(object, new MovieImdbLookupVO()));
 			movieImdbLookupVO.runtime = DataTypeUtil.toNumber(object.runtime);
 			
-			movieImdbLookupVO.genres = new ArrayCollection();
+			movieImdbLookupVO.genres = new Vector.<MovieImdbLookupVO>();
 			for each (var genre:Object in object.genres) {
-				movieImdbLookupVO.genres.addItem(createGenreVO(genre));
+				movieImdbLookupVO.genres.push(createGenreVO(genre));
 			}
 
 			return movieImdbLookupVO;
@@ -60,24 +58,24 @@ package com.richardhoppes.moviedb.util.json {
 			movieInfoVO.homepage = object.homepage;
 			movieInfoVO.trailer = object.trailer;
 			
-			movieInfoVO.genres = new ArrayCollection();
+			movieInfoVO.genres = new Vector.<GenreVO>();
 			for each (var genre:Object in object.genres) {
-				movieInfoVO.genres.addItem(createGenreVO(genre));
+				movieInfoVO.genres.push(createGenreVO(genre));
 			}
 			
-			movieInfoVO.countries = new ArrayCollection();
+			movieInfoVO.countries = new Vector.<CountryVO>();
 			for each (var country:Object in object.countries) {
-				movieInfoVO.countries.addItem(createCountryVO(country));
+				movieInfoVO.countries.push(createCountryVO(country));
 			}
 			
-			movieInfoVO.studios = new ArrayCollection();
+			movieInfoVO.studios = new Vector.<StudioVO>();
 			for each (var studio:Object in object.studios) {
-				movieInfoVO.studios.addItem(createStudioVO(studio));
+				movieInfoVO.studios.push(createStudioVO(studio));
 			}
 			
-			movieInfoVO.people = new ArrayCollection();
+			movieInfoVO.people = new Vector.<CastVO>();
 			for each (var person:Object in object.cast) {
-				movieInfoVO.people.addItem(createCastVO(person));
+				movieInfoVO.people.push(createCastVO(person));
 			}
 			
 			return movieInfoVO;
@@ -110,15 +108,15 @@ package com.richardhoppes.moviedb.util.json {
 			movieVO.rating = DataTypeUtil.toNumber(object.rating);
 			movieVO.translated = DataTypeUtil.toBoolean(object.translated); 
 			
-			movieVO.images = new ArrayCollection();
+			movieVO.images = new Vector.<ImageVO>();
 			for each (var poster:Object in object.posters) {
 				for each (var posterImage:Object in poster) {
-					movieVO.images.addItem(createImageVO(posterImage));
+					movieVO.images.push(createImageVO(posterImage));
 				}
 			}
 			for each (var backdrop:Object in object.backdrops) {
 				for each (var backdropImage:Object in backdrop) {
-					movieVO.images.addItem(createImageVO(backdropImage));
+					movieVO.images.push(createImageVO(backdropImage));
 				}
 			}
 
@@ -208,9 +206,9 @@ package com.richardhoppes.moviedb.util.json {
 			personInfoVO.knownMovies = object.known_movies;
 			personInfoVO.birthday = DataTypeUtil.toDate(object.birthday);
 			
-			personInfoVO.filmography = new ArrayCollection();
+			personInfoVO.filmography = new Vector.<CastVO>();
 			for each (var cast:Object in object.filmography) {
-				personInfoVO.filmography.addItem(createCastVO(cast));
+				personInfoVO.filmography.push(createCastVO(cast));
 			}
 			
 			return personInfoVO;
@@ -231,9 +229,9 @@ package com.richardhoppes.moviedb.util.json {
 			personVO.popularity = object.popularity;
 			personVO.biography = object.biography;
 			personVO.images = object.images;		
-			personVO.images = new ArrayCollection();
+			personVO.images = new Vector.<ImageVO>();
 			for each (var profileImage:Object in object.profile) {
-				personVO.images.addItem(createImageVO(profileImage));
+				personVO.images.push(createImageVO(profileImage));
 			}
 			
 			return personVO;

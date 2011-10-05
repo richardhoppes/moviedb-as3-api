@@ -1,7 +1,7 @@
 package com.richardhoppes.moviedb.event.movie {
-	import flash.events.Event;
+	import com.richardhoppes.moviedb.vo.MovieVersionVO;
 	
-	import mx.collections.ArrayCollection;
+	import flash.events.Event;
 	
 	/**
 	 * Get Movie Version Event 
@@ -13,9 +13,9 @@ package com.richardhoppes.moviedb.event.movie {
 		public static const RESULT:String = "GetMovieVersionEvent.RESULT";
 		public static const NO_RESULTS:String = "GetMovieVersionEvent.NO_RESULT";
 		
-		private var _results:ArrayCollection;
+		private var _results:Vector.<MovieVersionVO>;
 		
-		public function get results():ArrayCollection {
+		public function get results():Vector.<MovieVersionVO> {
 			return _results;
 		}
 		
@@ -25,7 +25,7 @@ package com.richardhoppes.moviedb.event.movie {
 			return _rawResult;
 		}
 		
-		public function GetMovieVersionEvent(type:String, results:ArrayCollection, rawResult:String, bubbles:Boolean = false) {
+		public function GetMovieVersionEvent(type:String, results:Vector.<MovieVersionVO>, rawResult:String, bubbles:Boolean = false) {
 			super(type, bubbles);
 			_results = results;
 			_rawResult = rawResult;

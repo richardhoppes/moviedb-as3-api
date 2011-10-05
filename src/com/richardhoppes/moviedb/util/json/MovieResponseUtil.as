@@ -1,15 +1,13 @@
 package com.richardhoppes.moviedb.util.json {
 	import com.richardhoppes.moviedb.vo.ImageVO;
-	import com.richardhoppes.moviedb.vo.MovieLatestVO;
 	import com.richardhoppes.moviedb.vo.MovieBrowseVO;
 	import com.richardhoppes.moviedb.vo.MovieImdbLookupVO;
 	import com.richardhoppes.moviedb.vo.MovieInfoVO;
+	import com.richardhoppes.moviedb.vo.MovieLatestVO;
 	import com.richardhoppes.moviedb.vo.MovieSearchVO;
 	import com.richardhoppes.moviedb.vo.MovieVO;
-	import com.richardhoppes.moviedb.vo.TranslationVO;
 	import com.richardhoppes.moviedb.vo.MovieVersionVO;
-	
-	import mx.collections.ArrayCollection;
+	import com.richardhoppes.moviedb.vo.TranslationVO;
 	
 	/**
 	 * Response Utility 
@@ -20,13 +18,13 @@ package com.richardhoppes.moviedb.util.json {
 		public function MovieResponseUtil() {
 		}
 		
-		public static function movieSearch(response:String):ArrayCollection {
-			var result:ArrayCollection = new ArrayCollection();
+		public static function movieSearch(response:String):Vector.<MovieSearchVO> {
+			var result:Vector.<MovieSearchVO> = new Vector.<MovieSearchVO>();
 			var jsonResult:Object = ParseUtil.decodeAsObject(response);
 			if(jsonResult.length > 0) {
 				for each (var movie:Object in jsonResult) {
 					var movieVO:MovieSearchVO = VOUtil.createMovieSearchVO(movie);
-					result.addItem(movieVO);
+					result.push(movieVO);
 				} 
 			}
 			return result;
@@ -50,25 +48,25 @@ package com.richardhoppes.moviedb.util.json {
 			return result;
 		}
 		
-		public static function getTranslations(response:String):ArrayCollection {
-			var result:ArrayCollection = new ArrayCollection();
+		public static function getTranslations(response:String):Vector.<TranslationVO> {
+			var result:Vector.<TranslationVO> = new Vector.<TranslationVO>();
 			var jsonResult:Object = ParseUtil.decodeAsObject(response);
 			if(jsonResult.length > 0) {
 				for(var i:Number = 0; i < jsonResult[0].translations.length; i++) {
 					var translationVO:TranslationVO = VOUtil.createTranslationVO(jsonResult[0].translations[i]);
-					result.addItem(translationVO);
+					result.push(translationVO);
 				}
 			}
 			return result;
 		}
 		
-		public static function getVersion(response:String):ArrayCollection {
-			var result:ArrayCollection = new ArrayCollection();
+		public static function getVersion(response:String):Vector.<MovieVersionVO> {
+			var result:Vector.<MovieVersionVO> = new Vector.<MovieVersionVO>();
 			var jsonResult:Object = ParseUtil.decodeAsObject(response);
 			if(jsonResult.length > 0) {
 				for each (var version:Object in jsonResult) {
 					var versionVO:MovieVersionVO = VOUtil.createMovieVersionVO(version);
-					result.addItem(versionVO);
+					result.push(versionVO);
 				} 
 			}
 			return result;
@@ -83,31 +81,31 @@ package com.richardhoppes.moviedb.util.json {
 			return result;
 		}
 		
-		public static function getImages(response:String):ArrayCollection {
-			var results:ArrayCollection = new ArrayCollection();
+		public static function getImages(response:String):Vector.<ImageVO> {
+			var results:Vector.<ImageVO> = new Vector.<ImageVO>();
 			var jsonResult:Object = ParseUtil.decodeAsObject(response);
 			if(jsonResult.length > 0) {
 				for each (var poster:Object in jsonResult[0].posters) {
 					for each (var posterImage:Object in poster) {
-						results.addItem(VOUtil.createImageVO(posterImage));
+						results.push(VOUtil.createImageVO(posterImage));
 					}
 				}
 				for each (var backdrop:Object in jsonResult[0].backdrops) {
 					for each (var backdropImage:Object in backdrop) {
-						results.addItem(VOUtil.createImageVO(backdropImage));
+						results.push(VOUtil.createImageVO(backdropImage));
 					}
 				}
 			}
 			return results;
 		}
 		
-		public static function browse(response:String):ArrayCollection {
-			var result:ArrayCollection = new ArrayCollection();
+		public static function browse(response:String):Vector.<MovieBrowseVO> {
+			var result:Vector.<MovieBrowseVO> = new Vector.<MovieBrowseVO>();
 			var jsonResult:Object = ParseUtil.decodeAsObject(response);
 			if(jsonResult.length > 0) {
 				for each (var movie:Object in jsonResult) {
 					var movieVO:MovieBrowseVO = VOUtil.createMovieBrowseVO(movie);
-					result.addItem(movieVO);
+					result.push(movieVO);
 				} 
 			}
 			return result;

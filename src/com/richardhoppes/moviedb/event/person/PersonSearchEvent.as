@@ -1,7 +1,7 @@
 package com.richardhoppes.moviedb.event.person {
-	import flash.events.Event;
+	import com.richardhoppes.moviedb.vo.PersonSearchVO;
 	
-	import mx.collections.ArrayCollection;
+	import flash.events.Event;
 
 	/**
 	 * Movie Search Event 
@@ -13,9 +13,9 @@ package com.richardhoppes.moviedb.event.person {
 		public static const RESULT:String = "PersonSearchEvent.RESULT";
 		public static const NO_RESULTS:String = "PersonSearchEvent.NO_RESULTS";
 		
-		private var _results:ArrayCollection;
+		private var _results:Vector.<PersonSearchVO>;
 		
-		public function get results():ArrayCollection {
+		public function get results():Vector.<PersonSearchVO> {
 			return _results;
 		}
 		
@@ -25,7 +25,7 @@ package com.richardhoppes.moviedb.event.person {
 			return _rawResult;
 		}
 		
-		public function PersonSearchEvent(type:String, results:ArrayCollection, rawResult:String, bubbles:Boolean = false) {
+		public function PersonSearchEvent(type:String, results:Vector.<PersonSearchVO>, rawResult:String, bubbles:Boolean = false) {
 			super(type, bubbles);
 			_results = results;
 			_rawResult = rawResult;

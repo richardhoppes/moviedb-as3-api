@@ -1,8 +1,6 @@
 package com.richardhoppes.moviedb.event.movie {
 	import flash.events.Event;
 	
-	import mx.collections.ArrayCollection;
-	
 	/**
 	 * Browse Movies Event 
 	 * @author richard hoppes

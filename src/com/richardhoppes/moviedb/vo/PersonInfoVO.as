@@ -14,7 +14,7 @@ package com.richardhoppes.moviedb.vo {
 		}
 		
 		public var knownMovies:Number;
-		public var birthday:String;	
+		public var birthday:Date;	
 		public var birthplace:String;
 		public var filmography:ArrayCollection;	// Collection of cast objects
 		

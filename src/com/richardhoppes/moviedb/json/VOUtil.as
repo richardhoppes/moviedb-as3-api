@@ -1,4 +1,5 @@
 package com.richardhoppes.moviedb.json {
+	import com.adobe.utils.DateUtil;
 	import com.richardhoppes.moviedb.vo.CastVO;
 	import com.richardhoppes.moviedb.vo.CountryVO;
 	import com.richardhoppes.moviedb.vo.GenreVO;
@@ -97,7 +98,7 @@ package com.richardhoppes.moviedb.json {
 			movieVO.language = object.language;
 			movieVO.imdbId = object.imdb_id;
 			movieVO.name = object.name;			
-			movieVO.lastModifiedAt = object.last_modified_at;
+			movieVO.lastModifiedAt = DataTypeUtil.handleDate(object.last_modified_at);
 			movieVO.url = object.url;
 			movieVO.id = object.id;
 			movieVO.releaseDate = object.released;
@@ -186,7 +187,7 @@ package com.richardhoppes.moviedb.json {
 			versionVO.name = object.name;
 			versionVO.id = object.id;
 			versionVO.imdbId = object.imdb_id;
-			versionVO.lastModifiedAt = object.last_modified_at;
+			versionVO.lastModifiedAt = DataTypeUtil.handleDate(object.last_modified_at);
 			versionVO.version = object.version;
 			return versionVO;
 		}
@@ -196,7 +197,7 @@ package com.richardhoppes.moviedb.json {
 			latestVO.name = object.name;
 			latestVO.id = object.id;
 			latestVO.imdbId = object.imdb_id;
-			latestVO.lastModifiedAt = object.last_modified_at;
+			latestVO.lastModifiedAt = DataTypeUtil.handleDate(object.last_modified_at);
 			latestVO.version = object.version;
 			return latestVO;
 		}
@@ -204,7 +205,7 @@ package com.richardhoppes.moviedb.json {
 		public static function createPersonInfoVO(object:Object):PersonInfoVO {
 			var personInfoVO:PersonInfoVO = PersonInfoVO(VOUtil.createPersonVO(object, new PersonInfoVO()));
 			personInfoVO.knownMovies = object.known_movies;
-			personInfoVO.birthday = object.birthday;
+			personInfoVO.birthday = DataTypeUtil.handleDate(object.birthday);
 			
 			personInfoVO.filmography = new ArrayCollection();
 			for each (var cast:Object in object.filmography) {
@@ -224,12 +225,11 @@ package com.richardhoppes.moviedb.json {
 			personVO.id = object.id;
 			personVO.name = object.name;
 			personVO.version = object.version;
-			personVO.lastModifiedAt = object.last_modified;
+			personVO.lastModifiedAt = DataTypeUtil.handleDate(object.last_modified_at);
 			personVO.url = object.url;
 			personVO.popularity = object.popularity;
 			personVO.biography = object.biography;
-			personVO.images = object.images;
-			
+			personVO.images = object.images;		
 			personVO.images = new ArrayCollection();
 			for each (var profileImage:Object in object.profile) {
 				personVO.images.addItem(createImageVO(profileImage));
@@ -242,7 +242,7 @@ package com.richardhoppes.moviedb.json {
 			var versionVO:PersonVersionVO = new PersonVersionVO();
 			versionVO.name = object.name;
 			versionVO.id = object.id;
-			versionVO.lastModifiedAt = object.last_modified_at;
+			versionVO.lastModifiedAt = DataTypeUtil.handleDate(object.last_modified_at);
 			versionVO.version = object.version;
 			return versionVO;
 		}
@@ -251,7 +251,7 @@ package com.richardhoppes.moviedb.json {
 			var latestVO:PersonLatestVO = new PersonLatestVO();
 			latestVO.name = object.name;
 			latestVO.id = object.id;
-			latestVO.lastModifiedAt = object.last_modified_at;
+			latestVO.lastModifiedAt = DataTypeUtil.handleDate(object.last_modified_at);
 			latestVO.version = object.version;
 			return latestVO;
 		}

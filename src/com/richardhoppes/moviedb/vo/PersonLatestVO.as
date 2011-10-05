@@ -14,6 +14,6 @@ package com.richardhoppes.moviedb.vo {
 		public var name:String;
 		public var id:String;
 		public var version:String;
-		public var lastModifiedAt:String;
+		public var lastModifiedAt:Date;
 	}
 }

@@ -16,11 +16,11 @@ package com.richardhoppes.moviedb.vo {
 		public var id:String;
 		public var name:String;
 		public var version:String;
-		public var lastModifiedAt:String;
 		public var url:String;
 		public var popularity:Number;
 		public var biography:String;
 		public var images:ArrayCollection;		// Collection of image objects
+		public var lastModifiedAt:Date;
 	}
 	
 }

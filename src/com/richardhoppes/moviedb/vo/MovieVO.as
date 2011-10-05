@@ -30,6 +30,6 @@ package com.richardhoppes.moviedb.vo {
 		public var releaseDate:String;
 		public var images:ArrayCollection;		// Collection of image objects
 		public var version:String;		
-		public var lastModifiedAt:String;
+		public var lastModifiedAt:Date;
 	}
 }

@@ -1,6 +1,6 @@
 package com.richardhoppes.moviedb.service {
 	import com.richardhoppes.moviedb.event.genre.GetGenreListEvent;
-	import com.richardhoppes.moviedb.json.GenreResponseUtil;
+	import com.richardhoppes.moviedb.util.json.GenreResponseUtil;
 	
 	import flash.events.Event;
 	

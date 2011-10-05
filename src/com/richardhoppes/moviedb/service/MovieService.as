@@ -10,8 +10,8 @@ package com.richardhoppes.moviedb.service {
 	import com.richardhoppes.moviedb.event.movie.GetMovieVersionEvent;
 	import com.richardhoppes.moviedb.event.movie.IMDBMovieLookupEvent;
 	import com.richardhoppes.moviedb.event.movie.MovieSearchEvent;
-	import com.richardhoppes.moviedb.json.MovieResponseUtil;
-	import com.richardhoppes.moviedb.json.ParseUtil;
+	import com.richardhoppes.moviedb.util.json.MovieResponseUtil;
+	import com.richardhoppes.moviedb.util.json.ParseUtil;
 	import com.richardhoppes.moviedb.vo.MovieImdbLookupVO;
 	import com.richardhoppes.moviedb.vo.MovieInfoVO;
 	import com.richardhoppes.moviedb.vo.MovieLatestVO;

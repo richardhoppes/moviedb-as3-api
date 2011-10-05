@@ -1,4 +1,4 @@
-package com.richardhoppes.moviedb.json {
+package com.richardhoppes.moviedb.util.json {
 	import com.richardhoppes.moviedb.vo.GenreVO;
 	
 	import mx.collections.ArrayCollection;

@@ -1,4 +1,4 @@
-package com.richardhoppes.moviedb.json {
+package com.richardhoppes.moviedb.util.json {
 	import com.adobe.serialization.json.JSON;
 	import com.adobe.serialization.json.JSONParseError;
 	

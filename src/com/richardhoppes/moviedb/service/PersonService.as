@@ -3,8 +3,8 @@ package com.richardhoppes.moviedb.service {
 	import com.richardhoppes.moviedb.event.person.GetPersonInfoEvent;
 	import com.richardhoppes.moviedb.event.person.GetPersonVersionEvent;
 	import com.richardhoppes.moviedb.event.person.PersonSearchEvent;
-	import com.richardhoppes.moviedb.json.MovieResponseUtil;
-	import com.richardhoppes.moviedb.json.PersonResponseUtil;
+	import com.richardhoppes.moviedb.util.json.MovieResponseUtil;
+	import com.richardhoppes.moviedb.util.json.PersonResponseUtil;
 	import com.richardhoppes.moviedb.vo.PersonInfoVO;
 	import com.richardhoppes.moviedb.vo.PersonLatestVO;
 	

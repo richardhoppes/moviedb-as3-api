@@ -2,8 +2,8 @@ package com.richardhoppes.moviedb.service {
 	import com.richardhoppes.moviedb.event.AuthErrorEvent;
 	import com.richardhoppes.moviedb.event.auth.GetSessionEvent;
 	import com.richardhoppes.moviedb.event.auth.GetTokenEvent;
-	import com.richardhoppes.moviedb.json.ParseUtil;
-	import com.richardhoppes.moviedb.json.MovieResponseUtil;
+	import com.richardhoppes.moviedb.util.json.ParseUtil;
+	import com.richardhoppes.moviedb.util.json.MovieResponseUtil;
 	
 	import flash.events.Event;
 	

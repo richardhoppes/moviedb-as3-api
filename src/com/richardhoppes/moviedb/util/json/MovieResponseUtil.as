@@ -1,4 +1,4 @@
-package com.richardhoppes.moviedb.json {
+package com.richardhoppes.moviedb.util.json {
 	import com.richardhoppes.moviedb.vo.ImageVO;
 	import com.richardhoppes.moviedb.vo.MovieLatestVO;
 	import com.richardhoppes.moviedb.vo.MovieBrowseVO;

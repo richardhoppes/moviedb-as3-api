@@ -1,4 +1,4 @@
-package com.richardhoppes.moviedb.json {
+package com.richardhoppes.moviedb.util {
 	import com.adobe.utils.DateUtil;
 
 	/**

@@ -1,4 +1,4 @@
-package com.richardhoppes.moviedb.json {
+package com.richardhoppes.moviedb.util.json {
 	import com.adobe.utils.DateUtil;
 	import com.richardhoppes.moviedb.vo.CastVO;
 	import com.richardhoppes.moviedb.vo.CountryVO;
@@ -20,6 +20,7 @@ package com.richardhoppes.moviedb.json {
 	import com.richardhoppes.moviedb.vo.TranslationVO;
 	
 	import mx.collections.ArrayCollection;
+	import com.richardhoppes.moviedb.util.DataTypeUtil;
 	
 	/**
 	 * VO Utility  

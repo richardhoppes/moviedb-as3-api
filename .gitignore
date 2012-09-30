@@ -1,0 +1,22 @@
+# Project build and release directories
+target/
+bin/
+bin-debug/
+bin-release/
+
+# Intellij IDEA project files
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Eclipse/Flex/Flash Builder project files
+.actionScriptProperties
+.flexProperties
+.flexLibProperties
+.settings/
+.project
+.classpath
+
+# Mac OS
+*.DS_Store
